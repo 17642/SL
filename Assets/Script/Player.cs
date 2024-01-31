@@ -12,10 +12,12 @@ public class Player : MonoBehaviour
 
     public bool isCrawling = false;
     public bool isMoving = false;
+
+    private GameObject soundRadius;
     
     void Start()
     {
-        
+        soundRadius = transform.Find("SoundRadius").gameObject;
     }
 
     // Update is called once per frame
@@ -23,17 +25,18 @@ public class Player : MonoBehaviour
     {
         toggleCrawl();
         playerMove();
-
-
+        soundRadius.SetActive(isMoving);
     }
 
     void toggleCrawl(){
         if(Input.GetKeyDown(KeyCode.LeftShift)) isCrawling = !isCrawling;
+        if(isCrawling) soundRadius.transform.localScale = new Vector2(0.75f,0.75f);
+        else soundRadius.transform.localScale = new Vector2(1,1);
     }
 
     void playerMove(){
-        float hInput = Input.GetAxisRaw("Horizontal");
-        float vInput = Input.GetAxisRaw("Vertical");
+        float hInput = Input.GetAxis("Horizontal");
+        float vInput = Input.GetAxis("Vertical");
 
         isMoving = hInput != 0 || vInput != 0;
 
@@ -43,7 +46,6 @@ public class Player : MonoBehaviour
 
         transform.position = (Vector2)transform.position+mvDirection*moveSpeed*Time.deltaTime;
     }
-
 
 
 }
