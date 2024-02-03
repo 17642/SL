@@ -2775,6 +2775,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c66daa4de1ec96a449231295e52084f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scanRadius: 5
+  scanRange: 20
 --- !u!1 &1099268298
 GameObject:
   m_ObjectHideFlags: 0
@@ -2788,7 +2790,7 @@ GameObject:
   - component: {fileID: 1099268301}
   m_Layer: 0
   m_Name: SoundB
-  m_TagString: Untagged
+  m_TagString: PlayerSoundB
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2908,7 +2910,7 @@ GameObject:
   - component: {fileID: 1218890766}
   m_Layer: 0
   m_Name: SoundA
-  m_TagString: Untagged
+  m_TagString: PlayerSoundA
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3061,9 +3063,9 @@ GameObject:
   - component: {fileID: 1689616567}
   - component: {fileID: 1689616571}
   - component: {fileID: 1689616570}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3304,8 +3306,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.005596161
-        value: 0.035640717
+        time: 0
+        value: 0.009319305
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3318,7 +3320,7 @@ LineRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 0.12893075, b: 0.12893075, a: 0.11764706}
-      key1: {r: 1, g: 0.12893075, b: 0.12893075, a: 0.11764706}
+      key1: {r: 1, g: 0.12893075, b: 0.12893075, a: 0.2}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -3608,8 +3610,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.005596161
-        value: 0.035640717
+        time: 0.0036621094
+        value: 0.004940033
         inSlope: 0
         outSlope: 0
         tangentMode: 0
