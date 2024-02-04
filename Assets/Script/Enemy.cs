@@ -27,10 +27,11 @@ public class Enemy : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, scanRadius, playerLayerMask);
 
         foreach (Collider2D collider in colliders){
-            Vector2 direction = (collider.transform.position - transform.position).normalized;
+            Vector2 direction = collider.transform.position - transform.position;
             float angle = Vector2.Angle(transform.up, direction);
+            float var = direction.magnitude;
             if(angle<scanRange){
-                Debug.Log("시야 범위 접근 각도:"+angle);
+                Debug.Log("시야 범위 접근 각도:"+angle+"거리: "+var);
             }
         }
 

@@ -2694,7 +2694,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 0.5
 --- !u!212 &887105210
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2776,7 +2776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scanRadius: 5
-  scanRange: 20
+  scanRange: 30
 --- !u!1 &1099268298
 GameObject:
   m_ObjectHideFlags: 0
