@@ -108,8 +108,8 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
-    agentSlope: 45
-    agentClimb: 0.4
+    agentSlope: 0
+    agentClimb: 0
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 20438609}
   - component: {fileID: 20438608}
   - component: {fileID: 20438610}
+  - component: {fileID: 20438611}
   m_Layer: 0
   m_Name: map
   m_TagString: Untagged
@@ -2504,6 +2505,22 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!114 &20438611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20438606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2653,7 +2670,9 @@ GameObject:
   - component: {fileID: 887105210}
   - component: {fileID: 887105209}
   - component: {fileID: 887105212}
-  m_Layer: 0
+  - component: {fileID: 887105214}
+  - component: {fileID: 887105213}
+  m_Layer: 2
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2777,6 +2796,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scanRadius: 5
   scanRange: 30
+  moveSpeed: 2
+  isIrrtated: 0
+  detectRange: 2
+  rotateSpeed: 119.6
+  scanSensitivity: 10
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 4
+--- !u!195 &887105213
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887105208}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5000001
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.5
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &887105214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887105208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e39f6090724e4a4a8aadeb042afa2bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1099268298
 GameObject:
   m_ObjectHideFlags: 0
@@ -2927,6 +2988,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageLight: 0
+  internalTime: 0
+  isStageOn: 0
 --- !u!4 &1136656852
 Transform:
   m_ObjectHideFlags: 0
@@ -3272,7 +3335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1798149357}
   - component: {fileID: 1798149358}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SightA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3414,7 +3477,7 @@ GameObject:
   - component: {fileID: 1862662610}
   - component: {fileID: 1862662609}
   - component: {fileID: 1862662608}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LightCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3502,7 +3565,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1879318968}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EnemySight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3679,7 +3742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2067995932}
   - component: {fileID: 2067995933}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SightB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3810,6 +3873,85 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 1
   m_ApplyActiveColorSpace: 1
+--- !u!1 &2095936213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2095936215}
+  - component: {fileID: 2095936214}
+  - component: {fileID: 2095936216}
+  m_Layer: 0
+  m_Name: NavMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2095936214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095936213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04976799df50f54ba128eff723155a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_HideEditorLogs: 0
+  m_NavMeshData: {fileID: 23800000, guid: 751ee93d19a01d6449983794952ffb78, type: 2}
+--- !u!4 &2095936215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095936213}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 16.5, y: 1.431217, z: 0.25594714}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &2095936216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095936213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70bd44a44cd62c64fbfc1eea95b24880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideByGrid: 0
+  m_UseMeshPrefab: {fileID: 0}
+  m_CompressBounds: 0
+  m_OverrideVector: {x: 1, y: 1, z: 1}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3820,3 +3962,4 @@ SceneRoots:
   - {fileID: 887105211}
   - {fileID: 1136656852}
   - {fileID: 1862662610}
+  - {fileID: 2095936215}
