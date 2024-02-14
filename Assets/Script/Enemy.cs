@@ -32,10 +32,13 @@ public class Enemy : MonoBehaviour
     LayerMask ignoreLayer;
     RaycastHit2D hit;
 
+[SerializeField]
+    private GameObject enemySight;
+
     int playerLayerMask;
 
     void Start(){
-        playerLayerMask = 1<<LayerMask.NameToLayer("Player");
+        //playerLayerMask = 1<<LayerMask.NameToLayer("Player");
         originLocation = transform.position;
         originDirection = transform.rotation;
         Debug.Log("원위치: "+ originLocation+" 방향: "+originDirection);
@@ -54,11 +57,12 @@ public class Enemy : MonoBehaviour
         DrawRay();
         if(isIrrtated){
         if(isDetected){
-            moveToDetectedLocation();
+            MoveToDetectedLocation();
         }else{
-            moveToOriginLocation();
+            MoveToOriginLocation();
         }
         }
+        enemySight.SetActive(StageManager.instance.stageLight);
     }
 
     void ScanFront(){//Raycast로 수정 필요 
@@ -123,7 +127,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void moveToDetectedLocation(){//Unity.A
+    void MoveToDetectedLocation(){//Unity.A
         nav.SetDestination(lastKnownPLocation);
         FaceTarget();
         if(((Vector2)transform.position-lastKnownPLocation).magnitude<0.1f){
@@ -131,7 +135,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void moveToOriginLocation(){
+    void MoveToOriginLocation(){
         if(((Vector2)transform.position-originLocation).magnitude>0.05f){
             nav.SetDestination(originLocation);
             FaceTarget();}
@@ -145,12 +149,13 @@ public class Enemy : MonoBehaviour
     }
 
     void FaceTarget() {
-    var vel = nav.velocity;
-    vel.z = 0;
+        var vel = nav.velocity;
+        vel.z = 0;
 
-    if (vel != Vector3.zero) {
-        transform.rotation = Quaternion.LookRotation(Vector3.forward,vel);
-    }
+        if (vel != Vector3.zero) {
+            transform.rotation = Quaternion.LookRotation(Vector3.forward,vel);
+        }
 }
+ 
     
 }

@@ -9,6 +9,18 @@ public class StageManager : MonoBehaviour
     public float internalTime = 0.0f;
     [SerializeField]
     private bool isStageOn;
+
+    #region SINGLETON
+    public static StageManager instance;
+    void Awake(){
+        if(instance == null){
+            instance = this;
+            //DontDestroyOnLoad(instance);
+        }else{
+            Destroy(gameObject);
+        }
+    }
+#endregion
     void Start()
     {
         isStageOn = true;
@@ -24,6 +36,7 @@ public class StageManager : MonoBehaviour
 
     public void ChgLight(){
         stageLight = !stageLight;
+
     }
 
     public void StageEnd(){

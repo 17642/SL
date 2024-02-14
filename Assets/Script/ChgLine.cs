@@ -4,22 +4,15 @@ using UnityEngine;
 
 public class ChgLine : MonoBehaviour
 {
-    
-    StageManager stageManager;
-    void Start()
-    {
-        stageManager = GameObject.FindObjectOfType<StageManager>();
-
-    }
 
     void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Player")){
-        stageManager.ChgLight();}
+        StageManager.instance.ChgLight();}
     }
 
     void OnTriggerExit2D(Collider2D other){
         if(other.CompareTag("Player")){
-        stageManager.ChgLight();}
+        StageManager.instance.ChgLight();}
     }
     
 }

@@ -2804,6 +2804,7 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 4
+  enemySight: {fileID: 1879318967}
 --- !u!195 &887105213
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     {
         toggleCrawl();
         playerMove();
-        soundRadius.SetActive(isMoving);
+        soundRadius.SetActive(isMoving&&!StageManager.instance.stageLight);
     }
 
     void toggleCrawl(){
