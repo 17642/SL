@@ -9,21 +9,24 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    //시야 요소
     [SerializeField]
-    private float scanRadius;
+    private float scanRadius;//시야 거리
     [SerializeField]
-    private float scanRange;
+    private float scanRange;//시야 반경
     [SerializeField]
-    private float moveSpeed;
-    private bool isDetected;
+    private float moveSpeed;//이동속도(미사용)
+    private bool isDetected;//적 감지 및 해당 방향으로 이동중.
     [SerializeField]
-    private bool isIrrtated;
+    private bool isIrrtated;//isDetected+ 원래 위치로 복귀중.
     [SerializeField]
-    private float detectRange;
+    private float detectRange;//경계 거리(이 거리 내부로 들어올 시 즉시 발각)
     [SerializeField]
-    private float rotateSpeed;
+    private float rotateSpeed;//회전 속도
     [SerializeField]
-    private float scanSensitivity;
+    private float scanSensitivity;//Ray의 수
+
+    //플레이어 및 원래 위치 기억
     private Vector2 originLocation;
     private Vector2 lastKnownPLocation;
     private Quaternion originDirection;
@@ -32,130 +35,179 @@ public class Enemy : MonoBehaviour
     LayerMask ignoreLayer;
     RaycastHit2D hit;
 
-[SerializeField]
+    [SerializeField]
     private GameObject enemySight;
+    //플레이어 소리 측정 시 사용
+    [SerializeField]
+    float soundListenCooldown;
+    float soundListenTimer = 0;
 
-    int playerLayerMask;
-
-    void Start(){
+    void Start()
+    {
         //playerLayerMask = 1<<LayerMask.NameToLayer("Player");
         originLocation = transform.position;
         originDirection = transform.rotation;
-        Debug.Log("원위치: "+ originLocation+" 방향: "+originDirection);
+        Debug.Log("원위치: " + originLocation + " 방향: " + originDirection);
         nav = GetComponent<NavMeshAgent>();
-        if(detectRange>scanRadius){
+        if (detectRange > scanRadius)
+        {
             Debug.LogWarning("적 개체의 경계 범위가 시야 범위보다 넓습니다.");
         }
         nav.updateRotation = false;
-		nav.updateUpAxis = false;
+        nav.updateUpAxis = false;
     }
-    
+
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        ScanFront2();
-        DrawRay();
-        if(isIrrtated){
-        if(isDetected){
-            MoveToDetectedLocation();
-        }else{
-            MoveToOriginLocation();
+        if (StageManager.instance.stageLight)
+        {
+            ScanFront2();
+            DrawRay();
         }
+        if (isIrrtated)
+        {
+            if (isDetected)
+            {
+                MoveToDetectedLocation();
+            }
+            else
+            {
+                MoveToOriginLocation();
+            }
         }
         enemySight.SetActive(StageManager.instance.stageLight);
     }
 
-    void ScanFront(){//Raycast로 수정 필요 
+    void ScanFront()
+    {//Raycast로 수정 필요 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, scanRadius);//, playerLayerMask);
 
-        foreach (Collider2D collider in colliders){
-            if(collider.CompareTag("Player")){
-            Vector2 direction = collider.transform.position - transform.position;
-            float angle = Vector2.Angle(transform.up, direction);
-            float var = direction.magnitude;
-            if(angle<scanRange){
-                Debug.Log("시야 범위 접근 각도:"+angle+"거리: "+var);
-                if(var>detectRange){
-                    isDetected = true;
-                    lastKnownPLocation = collider.transform.position;
-                    Debug.Log("경계 범위 접근. 마지막 추적 위치: "+lastKnownPLocation);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Player"))
+            {
+                Vector2 direction = collider.transform.position - transform.position;
+                float angle = Vector2.Angle(transform.up, direction);
+                float var = direction.magnitude;
+                if (angle < scanRange)
+                {
+                    Debug.Log("시야 범위 접근 각도:" + angle + "거리: " + var);
+                    if (var > detectRange)
+                    {
+                        isDetected = true;
+                        lastKnownPLocation = collider.transform.position;
+                        Debug.Log("경계 범위 접근. 마지막 추적 위치: " + lastKnownPLocation);
+                    }
                 }
-            }
             }
             break;
         }
 
     }
 
-    void ScanFront2(){
+    void ScanFront2()
+    {
         float startAngle = -scanRange; // 시작 각도
         float endAngle = scanRange; // 종료 각도
 
-        for(float angle = startAngle;angle<=endAngle;angle+=scanSensitivity){
-            Vector2 rayDir=Quaternion.Euler(0,0,angle)*transform.up;
+        for (float angle = startAngle; angle <= endAngle; angle += scanSensitivity)
+        {
+            Vector2 rayDir = Quaternion.Euler(0, 0, angle) * transform.up;
 
-            hit = Physics2D.Raycast(transform.position,rayDir,scanRadius, ~ignoreLayer);
+            hit = Physics2D.Raycast(transform.position, rayDir, scanRadius, ~ignoreLayer);
             //Debug.Log("접촉한 물체: "+hit.transform.name);
-            if(hit&&hit.collider.CompareTag("Player")){
+            if (hit && hit.collider.CompareTag("Player"))
+            {
                 Vector2 detectedPlayerPosition = hit.collider.transform.position;
-                float var =Vector2.Distance(detectedPlayerPosition,transform.position);
+                float var = Vector2.Distance(detectedPlayerPosition, transform.position);
 
                 Debug.Log("플레이어를 감지했습니다. 거리: " + var);
-                if(var>detectRange){
+                if (var > detectRange)
+                {
                     isDetected = true;
                     isIrrtated = true;
                     lastKnownPLocation = hit.transform.position;
-                    Debug.Log("경계 범위 접근. 마지막 추적 위치: "+lastKnownPLocation);
+                    Debug.Log("경계 범위 접근. 마지막 추적 위치: " + lastKnownPLocation);
                 }
                 break;
             }
         }
     }
 
-    void DrawRay(){
-        Vector2 FrontVec = transform.up*scanRadius;
-        Debug.DrawRay(transform.position, FrontVec,Color.red);
-        Debug.DrawRay(transform.position, Quaternion.Euler(0,0,scanRange)*FrontVec,Color.red);
-        Debug.DrawRay(transform.position, Quaternion.Euler(0,0,-scanRange)*FrontVec,Color.red);
+    void ScanBySound(Collider2D input)
+    {
+        isDetected = true;
+        isIrrtated = true;
+        lastKnownPLocation = input.transform.position;
+        Debug.Log("적 감지(소음) 거리: " + Vector2.Distance(lastKnownPLocation, transform.position));
     }
 
-    void OnTriggerStay2D(Collider2D other){
-        if(other.CompareTag("PlayerSoundA")){
+    void DrawRay()
+    {
+        Vector2 FrontVec = transform.up * scanRadius;
+        Debug.DrawRay(transform.position, FrontVec, Color.red);
+        Debug.DrawRay(transform.position, Quaternion.Euler(0, 0, scanRange) * FrontVec, Color.red);
+        Debug.DrawRay(transform.position, Quaternion.Euler(0, 0, -scanRange) * FrontVec, Color.red);
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("PlayerSoundA"))
+        {
             Debug.Log("소리 범위 A와 접촉");
-        }else if(other.CompareTag("PlayerSoundB")){
+        }
+        else if (other.CompareTag("PlayerSoundB"))
+        {
             Debug.Log("소리 범위 B와 접촉");
+            ScanBySound(other);//쿨다운 추가 예정
         }
     }
 
-    void MoveToDetectedLocation(){//Unity.A
+    void MoveToDetectedLocation()
+    {//Unity.A
         nav.SetDestination(lastKnownPLocation);
         FaceTarget();
-        if(((Vector2)transform.position-lastKnownPLocation).magnitude<0.1f){
+        if (((Vector2)transform.position - lastKnownPLocation).magnitude < 0.1f)
+        {
             isDetected = false;
         }
     }
 
-    void MoveToOriginLocation(){
-        if(((Vector2)transform.position-originLocation).magnitude>0.05f){
+    void MoveToOriginLocation()
+    {
+        if (((Vector2)transform.position - originLocation).magnitude > 0.05f)
+        {
             nav.SetDestination(originLocation);
-            FaceTarget();}
-        else if(Quaternion.Angle(transform.rotation, originDirection) > 0.05f){
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, originDirection,5f);
+            FaceTarget();
+        }
+        else if (Quaternion.Angle(transform.rotation, originDirection) > 0.05f)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, originDirection, 5f);
             //transform.rotation = Quaternion.LookRotation(Vector3.forward,originDirection.eulerAngles);
             //isIrrtated = false;
-        }else{
+        }
+        else
+        {
             isIrrtated = false;
         }
     }
 
-    void FaceTarget() {
+    void FaceTarget()
+    {
         var vel = nav.velocity;
         vel.z = 0;
 
-        if (vel != Vector3.zero) {
-            transform.rotation = Quaternion.LookRotation(Vector3.forward,vel);
+        if (vel != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, vel);
         }
-}
- 
-    
+    }
+
+    void InternalTimerFunction()
+    {
+
+    }
+
+
 }

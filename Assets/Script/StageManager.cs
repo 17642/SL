@@ -12,15 +12,19 @@ public class StageManager : MonoBehaviour
 
     #region SINGLETON
     public static StageManager instance;
-    void Awake(){
-        if(instance == null){
+    void Awake()
+    {
+        if (instance == null)
+        {
             instance = this;
             //DontDestroyOnLoad(instance);
-        }else{
+        }
+        else
+        {
             Destroy(gameObject);
         }
     }
-#endregion
+    #endregion
     void Start()
     {
         isStageOn = true;
@@ -29,17 +33,20 @@ public class StageManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isStageOn){
+        if (isStageOn)
+        {
             internalTime += Time.deltaTime;
         }
     }
 
-    public void ChgLight(){
+    public void ChgLight()
+    {
         stageLight = !stageLight;
 
     }
 
-    public void StageEnd(){
+    public void StageEnd()
+    {
         isStageOn = false;
     }
 }

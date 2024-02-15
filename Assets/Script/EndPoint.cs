@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class EndPoint : MonoBehaviour
 {
-    
-    void OnTriggerEnter2D(Collider2D other){
-        if(other.CompareTag("Player")){
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
             StageManager.instance.StageEnd();
         }
     }

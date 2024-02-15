@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public bool isMoving = false;
 
     private GameObject soundRadius;
-    
+
     void Start()
     {
         soundRadius = transform.Find("SoundRadius").gameObject;
@@ -25,26 +25,28 @@ public class Player : MonoBehaviour
     {
         toggleCrawl();
         playerMove();
-        soundRadius.SetActive(isMoving&&!StageManager.instance.stageLight);
+        soundRadius.SetActive(isMoving && !StageManager.instance.stageLight);
     }
 
-    void toggleCrawl(){
-        if(Input.GetKeyDown(KeyCode.LeftShift)) isCrawling = !isCrawling;
-        if(isCrawling) soundRadius.transform.localScale = new Vector2(0.75f,0.75f);
-        else soundRadius.transform.localScale = new Vector2(1,1);
+    void toggleCrawl()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift)) isCrawling = !isCrawling;
+        if (isCrawling) soundRadius.transform.localScale = new Vector2(0.75f, 0.75f);
+        else soundRadius.transform.localScale = new Vector2(1, 1);
     }
 
-    void playerMove(){
+    void playerMove()
+    {
         float hInput = Input.GetAxis("Horizontal");
         float vInput = Input.GetAxis("Vertical");
 
         isMoving = hInput != 0 || vInput != 0;
 
-        Vector2 mvDirection = new Vector2(hInput,vInput).normalized;
+        Vector2 mvDirection = new Vector2(hInput, vInput).normalized;
 
-        if(isCrawling) mvDirection *= slowMoveSpeedMultiply;
+        if (isCrawling) mvDirection *= slowMoveSpeedMultiply;
 
-        transform.position = (Vector2)transform.position+mvDirection*moveSpeed*Time.deltaTime;
+        transform.position = (Vector2)transform.position + mvDirection * moveSpeed * Time.deltaTime;
     }
 
 
