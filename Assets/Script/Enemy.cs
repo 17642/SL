@@ -156,6 +156,7 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag("PlayerSoundA"))
         {
             Debug.Log("소리 범위 A와 접촉");
+            return;
         }
         else if (other.CompareTag("PlayerSoundB"))
         {

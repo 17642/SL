@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     public bool isCrawling = false;
     public bool isMoving = false;
 
+    [SerializeField]
+    private int key_Amount = 0;
+
     private GameObject soundRadius;
 
     void Start()
@@ -49,5 +52,22 @@ public class Player : MonoBehaviour
         transform.position = (Vector2)transform.position + mvDirection * moveSpeed * Time.deltaTime;
     }
 
+    public void GetItem(GameObject input)
+    {
+        ItemData.ItemType itemType = input.GetComponent<ObtainableItem>().GetItemType();
+        if (itemType == ItemData.ItemType.Key)
+        {
+            key_Amount++;
+        }
+        Destroy(input);
+    }
+
+    public bool KeyUse(){
+        if(key_Amount>0){
+            key_Amount--;
+            return true;
+        }
+        return false;
+    }
 
 }
