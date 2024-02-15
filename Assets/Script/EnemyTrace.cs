@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EnemyTrace : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class EnemyTrace : MonoBehaviour
     [SerializeField]
     private float initialAlpha = 0.5f;
 
-    private Material material;
+    Renderer renderers;
+
+    //private Material material;
 
     private bool privateLightStatus;
 
@@ -24,7 +27,7 @@ public class EnemyTrace : MonoBehaviour
         gameObject.transform.SetParent(null);
         transform.rotation = Quaternion.identity;//회전 초기화
 
-        Renderer renderer = ParentTransform.GetComponent<Renderer>();
+        renderers = GetComponent<Renderer>();
 
 
         if (!StageManager.instance.stageLight) StartCoroutine(MoveToNewPosition());
@@ -45,7 +48,7 @@ public class EnemyTrace : MonoBehaviour
             else
             {
                 StartCoroutine(MoveToNewPosition());
-                renderer.material.color.a=0f;
+
             }
         }
         privateLightStatus = StageManager.instance.stageLight;
@@ -58,10 +61,12 @@ public class EnemyTrace : MonoBehaviour
             if (transform.position != ParentTransform.position)
             {
                 transform.position = ParentTransform.position;
-                renderer.material.color.a = initialAlpha;
-                StartCoroutine(FadeOut());
+                renderers.material.color = new Color(renderers.material.color.r, renderers.material.color.g, renderers.material.color.b, initialAlpha);
                 yield return new WaitForSeconds(refreshTime);
-            }else{
+            }
+            else
+            {
+                renderers.material.color = new Color(renderers.material.color.r, renderers.material.color.g, renderers.material.color.b, 0f);
                 yield return null;
             }
         }
@@ -72,10 +77,12 @@ public class EnemyTrace : MonoBehaviour
         while (elapsedTime < fadeTime)
         {
             float alpha = Mathf.Lerp(initialAlpha, 0f, elapsedTime / fadeTime);
-            renderer.material.color.a = alpha;
+            renderers.material.color = new Color(renderers.material.color.r, renderers.material.color.g, renderers.material.color.b, alpha);
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        renderer.material.color.a = 0f;
+        renderers.material.color = new Color(renderers.material.color.r, renderers.material.color.g, renderers.material.color.b, 0f);
+
     }
 }
