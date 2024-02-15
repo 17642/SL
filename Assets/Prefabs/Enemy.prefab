@@ -462,7 +462,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4
   enemySight: {fileID: 1497084136631290649}
-  soundListenCooldown: 0
+  soundListenCooldown: 1
+  enemyWaitingTime: 0.3
 --- !u!114 &6783102447124592862
 MonoBehaviour:
   m_ObjectHideFlags: 0

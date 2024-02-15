@@ -40,8 +40,10 @@ public class Enemy : MonoBehaviour
     //플레이어 소리 측정 시 사용
     [SerializeField]
     float soundListenCooldown;
-    float soundListenTimer = 0;
+    float soundListenTimer = 0f;
 
+    [SerializeField]
+    float enemyWaitingTime;
     void Start()
     {
         //playerLayerMask = 1<<LayerMask.NameToLayer("Player");
@@ -73,10 +75,11 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                MoveToOriginLocation();
+                //MoveToOriginLocation();
             }
         }
         enemySight.SetActive(StageManager.instance.stageLight);
+        TimerManager();
     }
 
     void ScanFront()
@@ -137,10 +140,13 @@ public class Enemy : MonoBehaviour
 
     void ScanBySound(Collider2D input)
     {
+        if(soundListenTimer<0.01f){
+        soundListenTimer=soundListenCooldown;
         isDetected = true;
         isIrrtated = true;
         lastKnownPLocation = input.transform.position;
         Debug.Log("적 감지(소음) 거리: " + Vector2.Distance(lastKnownPLocation, transform.position));
+        }
     }
 
     void DrawRay()
@@ -171,7 +177,7 @@ public class Enemy : MonoBehaviour
         FaceTarget();
         if (((Vector2)transform.position - lastKnownPLocation).magnitude < 0.1f)
         {
-            isDetected = false;
+            StartCoroutine(WaitAndResetDetection());
         }
     }
 
@@ -205,10 +211,18 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void InternalTimerFunction()
-    {
+    IEnumerator WaitAndResetDetection(){
+        isDetected = false;
+        yield return new WaitForSeconds(enemyWaitingTime);
 
+        MoveToOriginLocation();
     }
 
+    void TimerManager(){
+        if(!isDetected){
+        soundListenTimer -= Time.deltaTime; // 타이머 감소
+        soundListenTimer = Mathf.Max(soundListenTimer, 0f); // 타이머가 음수가 되지 않도록 보정
+        }
+    }
 
 }
