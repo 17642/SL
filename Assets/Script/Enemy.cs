@@ -82,32 +82,6 @@ public class Enemy : MonoBehaviour
         TimerManager();
     }
 
-    void ScanFront()
-    {//Raycast로 수정 필요 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, scanRadius);//, playerLayerMask);
-
-        foreach (Collider2D collider in colliders)
-        {
-            if (collider.CompareTag("Player"))
-            {
-                Vector2 direction = collider.transform.position - transform.position;
-                float angle = Vector2.Angle(transform.up, direction);
-                float var = direction.magnitude;
-                if (angle < scanRange)
-                {
-                    Debug.Log("시야 범위 접근 각도:" + angle + "거리: " + var);
-                    if (var > detectRange)
-                    {
-                        isDetected = true;
-                        lastKnownPLocation = collider.transform.position;
-                        Debug.Log("경계 범위 접근. 마지막 추적 위치: " + lastKnownPLocation);
-                    }
-                }
-            }
-            break;
-        }
-
-    }
 
     void ScanFront2()
     {
@@ -140,12 +114,13 @@ public class Enemy : MonoBehaviour
 
     void ScanBySound(Collider2D input)
     {
-        if(soundListenTimer<0.01f){
-        soundListenTimer=soundListenCooldown;
-        isDetected = true;
-        isIrrtated = true;
-        lastKnownPLocation = input.transform.position;
-        Debug.Log("적 감지(소음) 거리: " + Vector2.Distance(lastKnownPLocation, transform.position));
+        if (soundListenTimer < 0.01f)
+        {
+            soundListenTimer = soundListenCooldown;
+            isDetected = true;
+            isIrrtated = true;
+            lastKnownPLocation = input.transform.position;
+            Debug.Log("적 감지(소음) 거리: " + Vector2.Distance(lastKnownPLocation, transform.position));
         }
     }
 
@@ -167,7 +142,7 @@ public class Enemy : MonoBehaviour
         else if (other.CompareTag("PlayerSoundB"))
         {
             Debug.Log("소리 범위 B와 접촉");
-            ScanBySound(other);//쿨다운 추가 예정
+            if (!StageManager.instance.stageLight) ScanBySound(other);
         }
     }
 
@@ -181,22 +156,26 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void MoveToOriginLocation()
+    IEnumerator MoveToOriginLocation()
     {
-        if (((Vector2)transform.position - originLocation).magnitude > 0.05f)
+        while (isIrrtated && !isDetected)
         {
-            nav.SetDestination(originLocation);
-            FaceTarget();
-        }
-        else if (Quaternion.Angle(transform.rotation, originDirection) > 0.05f)
-        {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, originDirection, 5f);
-            //transform.rotation = Quaternion.LookRotation(Vector3.forward,originDirection.eulerAngles);
-            //isIrrtated = false;
-        }
-        else
-        {
-            isIrrtated = false;
+            if (((Vector2)transform.position - originLocation).magnitude > 0.05f)
+            {
+                nav.SetDestination(originLocation);
+                FaceTarget();
+            }
+            else if (Quaternion.Angle(transform.rotation, originDirection) > 0.05f)
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, originDirection, 5f);
+                //transform.rotation = Quaternion.LookRotation(Vector3.forward,originDirection.eulerAngles);
+                //isIrrtated = false;
+            }
+            else
+            {
+                isIrrtated = false;
+            }
+            yield return null;
         }
     }
 
@@ -211,17 +190,21 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    IEnumerator WaitAndResetDetection(){
+
+    IEnumerator WaitAndResetDetection()
+    {
         isDetected = false;
         yield return new WaitForSeconds(enemyWaitingTime);
 
-        MoveToOriginLocation();
+        StartCoroutine(MoveToOriginLocation());
     }
 
-    void TimerManager(){
-        if(!isDetected){
-        soundListenTimer -= Time.deltaTime; // 타이머 감소
-        soundListenTimer = Mathf.Max(soundListenTimer, 0f); // 타이머가 음수가 되지 않도록 보정
+    void TimerManager()
+    {
+        if (!isDetected)
+        {
+            soundListenTimer -= Time.deltaTime; // 타이머 감소
+            soundListenTimer = Mathf.Max(soundListenTimer, 0f); // 타이머가 음수가 되지 않도록 보정
         }
     }
 

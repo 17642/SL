@@ -44,6 +44,7 @@ public class EnemyTrace : MonoBehaviour
             {
                 StopCoroutine(MoveToNewPosition());
                 StopCoroutine(FadeOut());
+                renderers.material.color = new Color(renderers.material.color.r, renderers.material.color.g, renderers.material.color.b, 0f);
             }
             else
             {
@@ -61,6 +62,7 @@ public class EnemyTrace : MonoBehaviour
             if (transform.position != ParentTransform.position)
             {
                 transform.position = ParentTransform.position;
+                transform.rotation = ParentTransform.rotation;
                 renderers.material.color = new Color(renderers.material.color.r, renderers.material.color.g, renderers.material.color.b, initialAlpha);
                 yield return new WaitForSeconds(refreshTime);
             }
