@@ -63,6 +63,7 @@ public class EnemyTrace : MonoBehaviour
                 transform.position = ParentTransform.position;
                 transform.rotation = ParentTransform.rotation;
                 renderers.material.color = new Color(renderers.material.color.r, renderers.material.color.g, renderers.material.color.b, initialAlpha);
+                StartCoroutine(FadeOut());
                 yield return new WaitForSeconds(refreshTime);
             }
             else

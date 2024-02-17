@@ -625,4 +625,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276d62be7dcb2144c96d3d634ddfcacc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PostProcessingVolumeLow: 0.6
+  PostProcessingVolumeHigh: 0.2
   colorGradingTime: 0.5

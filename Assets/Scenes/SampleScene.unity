@@ -2998,6 +2998,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5423930145376431459, guid: fd6a4188abca97a48bd61704ea234187, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423930145376431459, guid: fd6a4188abca97a48bd61704ea234187, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423930145376431459, guid: fd6a4188abca97a48bd61704ea234187, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6701708221584736481, guid: fd6a4188abca97a48bd61704ea234187, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -3171,7 +3183,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1793111777047616678, guid: 673d5ab41eca104479049758ce33fd57, type: 3}
       propertyPath: weight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1793111777047616678, guid: 673d5ab41eca104479049758ce33fd57, type: 3}
       propertyPath: isGlobal

@@ -7,7 +7,7 @@ public class DoorOpenArea : MonoBehaviour
     // Start is called before the first frame update
     void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Player")){
-            if(other.GetComponent<Player>().KeyUse()){
+            if(other.GetComponent<Player>().UseItem(ItemData.ItemType.Key)){
                 gameObject.SetActive(false);
             }
         }

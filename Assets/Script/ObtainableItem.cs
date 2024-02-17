@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class ItemData{
     public enum ItemType{
-        Key,Knife
+        Key,Knife,Coin
     }
 
     public ItemType itemType;

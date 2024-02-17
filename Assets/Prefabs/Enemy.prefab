@@ -89,8 +89,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.0036621094
-        value: 0.004940033
+        time: 0
+        value: 0.035640717
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -102,8 +102,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.8830482, b: 0.12941176, a: 0.11764706}
-      key1: {r: 1, g: 0.8830482, b: 0.12941176, a: 0.11764706}
+      key0: {r: 1, g: 1, b: 1, a: 0.11764706}
+      key1: {r: 1, g: 1, b: 1, a: 0.11764706}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -463,8 +463,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4
   enemySight: {fileID: 1497084136631290649}
-  soundListenCooldown: 1
+  soundListenCooldown: 0.5
   enemyWaitingTime: 0.3
+  unitRenderer: {fileID: 0}
 --- !u!114 &6783102447124592862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,6 +597,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0130115e27de9644ba66a52c7680bbff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refreshTime: 1
+  refreshTime: 0.5
   fadeTime: 0.3
-  initialAlpha: 0.5
+  initialAlpha: 1

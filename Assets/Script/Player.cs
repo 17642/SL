@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int key_Amount = 0;
 
+    public int[] item_Amount = { 0, 0, 0 };
+
     private GameObject soundRadius;
 
     void Start()
@@ -55,18 +57,19 @@ public class Player : MonoBehaviour
     public void GetItem(GameObject input)
     {
         ItemData.ItemType itemType = input.GetComponent<ObtainableItem>().GetItemType();
-        if (itemType == ItemData.ItemType.Key)
-        {
-            key_Amount++;
-        }
+        item_Amount[(int)itemType]++;
         Destroy(input);
     }
 
-    public bool KeyUse(){
-        if(key_Amount>0){
-            key_Amount--;
+    public bool UseItem(ItemData.ItemType type)
+    {
+        if (item_Amount[(int)type] > 0)
+        {
+            item_Amount[(int)type]--;
             return true;
         }
+
+
         return false;
     }
 

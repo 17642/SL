@@ -11,6 +11,12 @@ public class CameraScript : MonoBehaviour
     PostProcessVolume ppp;
 
     [SerializeField]
+    float PostProcessingVolumeLow;
+
+    [SerializeField]
+    float PostProcessingVolumeHigh;
+
+    [SerializeField]
     float colorGradingTime;
 
     private bool privateLightStatus;
@@ -21,11 +27,11 @@ public class CameraScript : MonoBehaviour
         ppp = GetComponent<PostProcessVolume>();
         if (StageManager.instance.stageLight)
         {
-            ppp.weight = 0f;
+            ppp.weight = PostProcessingVolumeLow;
         }
         else
         {
-            ppp.weight = 1.0f;
+            ppp.weight = PostProcessingVolumeHigh;
         }
     }
 
@@ -36,12 +42,12 @@ public class CameraScript : MonoBehaviour
             if (StageManager.instance.stageLight)
             {
                 StopAllCoroutines();
-                StartCoroutine(SmoothWeightChange(0f));
+                StartCoroutine(SmoothWeightChange(PostProcessingVolumeLow));
             }
             else
             {
                 StopAllCoroutines();
-                StartCoroutine(SmoothWeightChange(1.0f));
+                StartCoroutine(SmoothWeightChange(PostProcessingVolumeHigh));
 
             }
         }
