@@ -42,8 +42,7 @@ public class EnemyTrace : MonoBehaviour
         {
             if (StageManager.instance.stageLight)
             {
-                StopCoroutine(MoveToNewPosition());
-                StopCoroutine(FadeOut());
+                StopAllCoroutines();
                 renderers.material.color = new Color(renderers.material.color.r, renderers.material.color.g, renderers.material.color.b, 0f);
             }
             else

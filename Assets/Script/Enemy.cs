@@ -44,8 +44,12 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     float enemyWaitingTime;
+
+    public Renderer unitRenderer;
+
     void Start()
     {
+        unitRenderer = GetComponent<Renderer>();
         //playerLayerMask = 1<<LayerMask.NameToLayer("Player");
         originLocation = transform.position;
         originDirection = transform.rotation;
@@ -62,6 +66,8 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        SetUnitAlpha();
+
         if (StageManager.instance.stageLight)
         {
             ScanFront2();
@@ -206,6 +212,13 @@ public class Enemy : MonoBehaviour
             soundListenTimer -= Time.deltaTime; // 타이머 감소
             soundListenTimer = Mathf.Max(soundListenTimer, 0f); // 타이머가 음수가 되지 않도록 보정
         }
+    }
+
+    void SetUnitAlpha()
+    {
+        Color color = unitRenderer.material.color;
+        color.a = StageManager.instance.stageLight ? 1.0f : 0.0f; // isVisible 값에 따라 투명도를 설정합니다.
+        unitRenderer.material.color = color;
     }
 
 }
