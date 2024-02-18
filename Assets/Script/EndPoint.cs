@@ -10,7 +10,7 @@ public class EndPoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StageManager.instance.StageEnd();
+            StageManager.instance.StageEnd(true,other.GetComponent<Player>().item_Amount[(int)ItemData.ItemType.Coin]);
         }
     }
 }

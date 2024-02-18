@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     private float moveSpeed;//이동속도(미사용)
     private bool isDetected;//적 감지 및 해당 방향으로 이동중.
     [SerializeField]
-    private bool isIrrtated;//isDetected+ 원래 위치로 복귀중.
+    protected bool isIrrtated;//isDetected+ 원래 위치로 복귀중.
     [SerializeField]
     private float detectRange;//경계 거리(이 거리 내부로 들어올 시 즉시 발각)
     [SerializeField]
@@ -27,10 +27,10 @@ public class Enemy : MonoBehaviour
     private float scanSensitivity;//Ray의 수
 
     //플레이어 및 원래 위치 기억
-    private Vector2 originLocation;
+    protected Vector2 originLocation;
     private Vector2 lastKnownPLocation;
-    private Quaternion originDirection;
-    private NavMeshAgent nav;
+    protected Quaternion originDirection;
+    protected NavMeshAgent nav;
     [SerializeField]
     LayerMask ignoreLayer;
     RaycastHit2D hit;
@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
 
     public Renderer unitRenderer;
 
-    void Start()
+    protected virtual void Start()
     {
         unitRenderer = GetComponent<Renderer>();
         //playerLayerMask = 1<<LayerMask.NameToLayer("Player");
@@ -185,7 +185,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void FaceTarget()
+    protected void FaceTarget()
     {
         var vel = nav.velocity;
         vel.z = 0;

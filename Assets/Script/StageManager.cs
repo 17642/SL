@@ -10,6 +10,10 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     private bool isStageOn;
 
+    //private bool stageHasCoin;
+    [SerializeField]
+    private int stageCoinNum;
+
     #region SINGLETON
     public static StageManager instance;
     void Awake()
@@ -45,8 +49,11 @@ public class StageManager : MonoBehaviour
 
     }
 
-    public void StageEnd()
+    public void StageEnd(bool stageEndType, int coinAmount)
     {
+        if(coinAmount>=stageCoinNum){
+            
+        }
         isStageOn = false;
     }
 }
