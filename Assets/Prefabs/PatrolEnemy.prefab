@@ -541,7 +541,7 @@ MonoBehaviour:
   scanSensitivity: 10
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   enemySight: {fileID: 1497084136631290649}
   soundListenCooldown: 0.5
   enemyWaitingTime: 0.3

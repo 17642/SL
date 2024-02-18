@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [System.Serializable]
-public enum PatrolType{
+public enum PatrolType
+{
     Linear, Circle
 }
 
@@ -16,29 +17,35 @@ public class PatrolEnemy : Enemy
     [SerializeField]
     PatrolType patrolType;
 
-    private bool isReturning=false;//Linear 순찰에서만 사용
+    private bool isReturning = false;//Linear 순찰에서만 사용
 
 
-    int currentPatrolIndex=0;
+    int currentPatrolIndex = 0;
+
 
     protected override void Start()
     {
+        //Debug.Log(nav);
         base.Start();
+        //Debug.Log(nav);
 
-
+        Patrol();
     }
 
     protected override void Update()
     {
         base.Update();
-
-        if(!isIrrtated){
-            SetOriginPos();
-            moveToNextLocation();
+        //Debug.Log("isUpdating");
+        if (!isIrrtated)
+         {
+             //Debug.Log("Attempting Patrolling");
+             SetOriginPos();
+             MoveToNextLocation();
         }
     }
 
-    void SetOriginPos(){
+    void SetOriginPos()
+    {
         originLocation = transform.position;
         originDirection = transform.rotation;
     }
@@ -58,14 +65,19 @@ public class PatrolEnemy : Enemy
 
     void PatrolLinear()
     {
-        if(!isReturning){
+        if (!isReturning)
+        {
             currentPatrolIndex++;
-            if(currentPatrolIndex==patrolPoint.point.Length-1){
+            if (currentPatrolIndex == patrolPoint.point.Length - 1)
+            {
                 isReturning = true;
             }
-        }else{
+        }
+        else
+        {
             currentPatrolIndex--;
-            if(currentPatrolIndex==0){
+            if (currentPatrolIndex == 0)
+            {
                 isReturning = false;
             }
         }
@@ -74,26 +86,32 @@ public class PatrolEnemy : Enemy
 
     void PatrolCircle()
     {
-        if (currentPatrolIndex == patrolPoint.point.Length - 1)
+        currentPatrolIndex++;
+
+        if (currentPatrolIndex == patrolPoint.point.Length)
         {
             currentPatrolIndex = 0;
         }
         else
         {
-            currentPatrolIndex++;
+            
         }
         SetDestination(patrolPoint.point[currentPatrolIndex].position);
     }
 
     void SetDestination(Vector3 destination)
     {
+        Debug.Log("Destination Set to "+destination);
         nav.SetDestination(destination);
     }
 
-    void moveToNextLocation(){
+    void MoveToNextLocation()
+    {
         FaceTarget();
+        //StartCoroutine(FaceCoroutine());
         if (((Vector2)transform.position - (Vector2)patrolPoint.point[currentPatrolIndex].position).magnitude < 0.1f)
         {
+            Debug.Log("Moving to next Location");
             Patrol();
         }
     }

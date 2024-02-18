@@ -192,8 +192,22 @@ public class Enemy : MonoBehaviour
 
         if (vel != Vector3.zero)
         {
-            transform.rotation = Quaternion.LookRotation(Vector3.forward, vel);
+            //transform.rotation = Quaternion.LookRotation(Vector3.forward, vel);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, originDirection, 5f);
         }
+    }
+
+    protected IEnumerator FaceCoroutine(){
+        var vel = nav.velocity;
+        vel.z = 0;
+
+        if (vel != Vector3.zero)
+        {
+            //transform.rotation = Quaternion.LookRotation(Vector3.forward, vel);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, originDirection, 5f);
+            yield return null;
+        }
+        
     }
 
 
