@@ -21,6 +21,8 @@ public class CameraScript : MonoBehaviour
 
     private bool privateLightStatus;
 
+    private Transform prb;
+
     void Start()
     {
         privateLightStatus = StageManager.instance.stageLight;
@@ -33,6 +35,9 @@ public class CameraScript : MonoBehaviour
         {
             ppp.weight = PostProcessingVolumeHigh;
         }
+
+        prb = transform.parent;
+        //gameObject.transform.SetParent(null);
     }
 
     void LateUpdate()
@@ -52,6 +57,9 @@ public class CameraScript : MonoBehaviour
             }
         }
         privateLightStatus = StageManager.instance.stageLight;
+
+        //transform.position = prb.GetComponent<Rigidbody2D>().position;
+        //transform.position = new Vector3(transform.position.x, transform.position.y, -1);
     }
 
     IEnumerator SmoothWeightChange(float targetWeight)

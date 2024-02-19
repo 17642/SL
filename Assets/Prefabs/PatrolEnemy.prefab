@@ -534,11 +534,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scanRadius: 5
   scanRange: 30
-  moveSpeed: 2
+  moveSpeed: 1.5
   isIrrtated: 0
   detectRange: 2
   rotateSpeed: 119.6
   scanSensitivity: 10
+  alertSpeed: 3.5
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 4

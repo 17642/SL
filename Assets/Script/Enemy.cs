@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float scanRange;//시야 반경
     [SerializeField]
-    private float moveSpeed;//이동속도(미사용)
+    private float moveSpeed;//적의 기본 이동속도
     private bool isDetected;//적 감지 및 해당 방향으로 이동중.
     [SerializeField]
     protected bool isIrrtated;//isDetected+ 원래 위치로 복귀중.
@@ -25,6 +25,8 @@ public class Enemy : MonoBehaviour
     private float rotateSpeed;//회전 속도
     [SerializeField]
     private float scanSensitivity;//Ray의 수
+    [SerializeField]
+    private float alertSpeed;//경계 상태에 들어간 적의 속도
 
     //플레이어 및 원래 위치 기억
     protected Vector2 originLocation;
@@ -61,6 +63,8 @@ public class Enemy : MonoBehaviour
         }
         nav.updateRotation = false;
         nav.updateUpAxis = false;
+
+        nav.speed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -75,6 +79,7 @@ public class Enemy : MonoBehaviour
         }
         if (isIrrtated)
         {
+            nav.speed = alertSpeed;
             if (isDetected)
             {
                 MoveToDetectedLocation();
@@ -83,6 +88,10 @@ public class Enemy : MonoBehaviour
             {
                 //MoveToOriginLocation();
             }
+        }
+        else
+        {
+            nav.speed = moveSpeed;
         }
         enemySight.SetActive(StageManager.instance.stageLight);
         TimerManager();
@@ -192,8 +201,8 @@ public class Enemy : MonoBehaviour
 
         if (vel != Vector3.zero)
         {
-            //transform.rotation = Quaternion.LookRotation(Vector3.forward, vel);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, originDirection, 5f);
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, vel);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, originDirection, 5f);
         }
     }
 

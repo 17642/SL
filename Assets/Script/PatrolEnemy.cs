@@ -18,6 +18,7 @@ public class PatrolEnemy : Enemy
     PatrolType patrolType;
 
     private bool isReturning = false;//Linear 순찰에서만 사용
+    private bool patrolCounter = false;
 
 
     int currentPatrolIndex = 0;
@@ -38,10 +39,16 @@ public class PatrolEnemy : Enemy
         //Debug.Log("isUpdating");
         if (!isIrrtated)
          {
-             //Debug.Log("Attempting Patrolling");
+            //Debug.Log("Attempting Patrolling");
+            if (!patrolCounter)
+            {
+                patrolCounter = true;
+                //Patrol();
+            }
              SetOriginPos();
              MoveToNextLocation();
         }
+        patrolCounter = false;
     }
 
     void SetOriginPos()
