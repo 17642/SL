@@ -8,11 +8,16 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     public float internalTime = 0.0f;
     [SerializeField]
-    private bool isStageOn;
+    public bool isStageOn;
+
+    [SerializeField]
+    public Player player;
 
     //private bool stageHasCoin;
     [SerializeField]
-    private int stageCoinNum;
+    public int stageCoinNum;
+    [SerializeField]
+    public int stageNumber;
 
     #region SINGLETON
     public static StageManager instance;

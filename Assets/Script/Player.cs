@@ -31,9 +31,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        toggleCrawl();
-        playerMove();
-        soundRadius.SetActive(isMoving && !StageManager.instance.stageLight);
+        if (StageManager.instance.isStageOn)
+        {
+            toggleCrawl();
+            playerMove();
+            soundRadius.SetActive(isMoving && !StageManager.instance.stageLight);
+        }
     }
 
     void toggleCrawl()

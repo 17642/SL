@@ -39,6 +39,16 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadSceneAsync(sceneName);
+    }
+
+    public static void GoToMenuScene()
+    {
+        SceneManager.LoadScene("InitialScene");
+    }
+
+    public static void ReloadScene()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 }
