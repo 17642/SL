@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,17 +11,17 @@ public class GameManager : MonoBehaviour
 
 
 
-#region SINGLETON
+    #region SINGLETON
     public static GameManager instance;
-    void Awake(){
-        if(instance == null){
+    void Awake() {
+        if (instance == null) {
             instance = this;
             DontDestroyOnLoad(instance);
-        }else{
+        } else {
             Destroy(gameObject);
         }
     }
-#endregion
+    #endregion
 
 
 
@@ -33,6 +34,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void ChangeScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }

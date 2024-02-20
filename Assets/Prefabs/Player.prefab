@@ -259,6 +259,7 @@ MonoBehaviour:
   isCrawling: 0
   isMoving: 0
   key_Amount: 0
+  item_Amount: 000000000000000000000000
 --- !u!50 &6670761186213856659
 Rigidbody2D:
   serializedVersion: 4
@@ -625,6 +626,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276d62be7dcb2144c96d3d634ddfcacc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PostProcessingVolumeLow: 0.6
-  PostProcessingVolumeHigh: 0.2
-  colorGradingTime: 0.5
+  PostProcessingVolumeLow: 1
+  PostProcessingVolumeHigh: 0
+  colorGradingTime: 0.7
