@@ -20,9 +20,13 @@ public class PatrolEnemy : Enemy
     private bool isReturning = false;//Linear 순찰에서만 사용
     private bool patrolCounter = false;
 
+    [SerializeField]
+    private float patrolPointDelay;
+
 
     int currentPatrolIndex = 0;
 
+    Coroutine patrol;
 
     protected override void Start()
     {
@@ -30,25 +34,20 @@ public class PatrolEnemy : Enemy
         base.Start();
         //Debug.Log(nav);
 
-        Patrol();
+        patrol = StartCoroutine(PatrolCoroutine());
+        
     }
 
     protected override void Update()
     {
         base.Update();
         //Debug.Log("isUpdating");
-        if (!isIrrtated)
-         {
-            //Debug.Log("Attempting Patrolling");
-            if (!patrolCounter)
-            {
-                patrolCounter = true;
-                //Patrol();
-            }
-             SetOriginPos();
-             MoveToNextLocation();
+        if (isIrrtated && !patrolCounter) 
+        {
+            patrolCounter = true;
+            StopCoroutine(patrol);
+            StartCoroutine(PatrolCheck());
         }
-        patrolCounter = false;
     }
 
     void SetOriginPos()
@@ -99,10 +98,6 @@ public class PatrolEnemy : Enemy
         {
             currentPatrolIndex = 0;
         }
-        else
-        {
-            
-        }
         SetDestination(patrolPoint.point[currentPatrolIndex].position);
     }
 
@@ -112,15 +107,42 @@ public class PatrolEnemy : Enemy
         nav.SetDestination(destination);
     }
 
-    void MoveToNextLocation()
+ 
+
+    IEnumerator PatrolCoroutine()
     {
-        FaceTarget();
-        //StartCoroutine(FaceCoroutine());
-        if (((Vector2)transform.position - (Vector2)patrolPoint.point[currentPatrolIndex].position).magnitude < 0.1f)
+        StartPatrol();
+
+        while (!isIrrtated)
         {
-            Debug.Log("Moving to next Location");
-            Patrol();
+            yield return StartCoroutine(FaceCoroutine());
+
+            if (((Vector2)transform.position - (Vector2)patrolPoint.point[currentPatrolIndex].position).magnitude < 0.1f)
+            {
+                Debug.Log("Moving to next Location");
+                Patrol();
+                
+            }
+            SetOriginPos();
+            yield return null;
         }
+        yield return null;
+    }
+
+    void StartPatrol()
+    {
+        SetDestination(patrolPoint.point[currentPatrolIndex].position);
+    }
+
+    IEnumerator PatrolCheck()
+    {
+        Debug.Log("PatolCheck Called");
+        while (isIrrtated)
+        {
+            yield return null;
+        }
+        patrolCounter = false;
+        patrol = StartCoroutine(PatrolCoroutine());
     }
 
 }

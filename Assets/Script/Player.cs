@@ -20,9 +20,12 @@ public class Player : MonoBehaviour
 
     private GameObject soundRadius;
 
+    private Rigidbody2D rb;
+
     void Start()
     {
         soundRadius = transform.Find("SoundRadius").gameObject;
+        rb=GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -51,7 +54,8 @@ public class Player : MonoBehaviour
 
         if (isCrawling) mvDirection *= slowMoveSpeedMultiply;
 
-        transform.position = (Vector2)transform.position + mvDirection * moveSpeed * Time.deltaTime;
+        //transform.position = (Vector2)transform.position + mvDirection * moveSpeed * Time.deltaTime;
+        rb.MovePosition((Vector2)transform.position + mvDirection * moveSpeed * Time.deltaTime);
     }
 
     public void GetItem(GameObject input)

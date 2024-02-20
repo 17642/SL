@@ -204,19 +204,35 @@ public class Enemy : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(Vector3.forward, vel);
             //transform.rotation = Quaternion.RotateTowards(transform.rotation, originDirection, 5f);
         }
+
+        Debug.Log("FaceTarget Called");
     }
 
     protected IEnumerator FaceCoroutine(){
-        var vel = nav.velocity;
-        vel.z = 0;
 
-        if (vel != Vector3.zero)
+        while (true)
         {
-            //transform.rotation = Quaternion.LookRotation(Vector3.forward, vel);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, originDirection, 5f);
+            var vel = nav.velocity;
+            vel.z = 0;
+
+            if (vel != Vector3.zero)
+            {
+                //transform.rotation = Quaternion.LookRotation(Vector3.forward, vel);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.LookRotation(Vector3.forward,vel), 2f);
+                
+            }
+            else
+            {
+                break;
+            }
+
+            
             yield return null;
+
+
         }
-        
+        Debug.Log("FaceCoroutine Called");
+
     }
 
 

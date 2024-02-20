@@ -3372,6 +3372,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6144745402201489537, guid: 673d5ab41eca104479049758ce33fd57, type: 3}
+      propertyPath: moveSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670761186213856659, guid: 673d5ab41eca104479049758ce33fd57, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670761186213856659, guid: 673d5ab41eca104479049758ce33fd57, type: 3}
+      propertyPath: m_LinearDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6670761186213856659, guid: 673d5ab41eca104479049758ce33fd57, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7634973958458098421, guid: 673d5ab41eca104479049758ce33fd57, type: 3}
       propertyPath: m_Name
       value: Player
