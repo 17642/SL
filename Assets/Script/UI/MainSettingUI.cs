@@ -7,7 +7,7 @@ public class MainSettingUI : MonoBehaviour
     // Start is called before the first frame update
     public void RemoveButtonClick()
     {
-
+        GameManager.instance.ResetStageData();
     }
 
     public void ExitButtonClick()

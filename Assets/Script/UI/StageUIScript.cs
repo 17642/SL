@@ -29,6 +29,11 @@ public class StageUIScript : MonoBehaviour
     TMPro.TextMeshProUGUI statusTime;
     [SerializeField]
     TMPro.TextMeshProUGUI statusStage;
+    [SerializeField]
+    TMPro.TextMeshProUGUI statusKnife;
+
+    [SerializeField]
+    CanvasGroup detectedPanel;
 
     [SerializeField]
     float startPanelFadeTime;
@@ -71,6 +76,17 @@ public class StageUIScript : MonoBehaviour
                 if (StatusCoroutine != null) StopCoroutine(StatusCoroutine);
                 StatusCoroutine = StartCoroutine(StatusDown());
             }
+
+            if (StageManager.instance.detectCount > 0)
+            {
+                //-감지됨- 표시
+                //임시
+                detectedPanel.alpha = 1;
+            }
+            else
+            {
+                detectedPanel.alpha = 0;
+            }
         }
 
         if (StageManager.instance.stageEnd)
@@ -108,6 +124,8 @@ public class StageUIScript : MonoBehaviour
                 // statusCoin.gameObject.SetActive(true);
                 // statusCoin.text = StageManager.instance.player.item_Amount[(int)ItemData.ItemType.Coin] + " / " + StageManager.instance.stageCoinNum;
                 break;
+            case "knife":
+                break;
             // 다른 옵션에 따른 상태 요소 팝업도 가능합니다.
             default:
                 // 올바르지 않은 옵션이거나 처리되지 않은 옵션일 경우 처리합니다.
@@ -122,6 +140,7 @@ public class StageUIScript : MonoBehaviour
         statusCoin.text = StageManager.instance.player.item_Amount[(int)ItemData.ItemType.Coin].ToString()+ " / " + StageManager.instance.stageCoinNum.ToString();
         int stageTimeRaw = (int)StageManager.instance.internalTime;
         statusTime.text = (stageTimeRaw / 60).ToString() + " : " + (stageTimeRaw % 60).ToString();
+        statusKnife.text = "X " + StageManager.instance.player.item_Amount[(int)ItemData.ItemType.Knife];
     }
 
     IEnumerator StatusUp()

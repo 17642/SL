@@ -23,6 +23,8 @@ public class StageManager : MonoBehaviour
     public bool stageEndType = false;
     public int obtainedCoin = 0;
 
+    public int detectCount = 0;
+
 
     #region SINGLETON
     public static StageManager instance;
@@ -42,6 +44,7 @@ public class StageManager : MonoBehaviour
     void Start()
     {
         isStageOn = true;
+        //stageCoinNum = GameManager.instance.stageMaxCoins[stageNumber - 1];
     }
 
     // Update is called once per frame

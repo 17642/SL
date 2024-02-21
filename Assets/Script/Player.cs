@@ -13,8 +13,6 @@ public class Player : MonoBehaviour
     public bool isCrawling = false;
     public bool isMoving = false;
 
-    [SerializeField]
-    private int key_Amount = 0;
 
     public int[] item_Amount = { 0, 0, 0 };
 

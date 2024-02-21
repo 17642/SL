@@ -151,6 +151,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("PlayerSoundA"))
         {
+            AttackPlayer(other.GetComponentInParent<Player>().transform.GetComponent<Collider2D>());
             Debug.Log("소리 범위 A와 접촉");
             return;
         }
@@ -260,4 +261,16 @@ public class Enemy : MonoBehaviour
         unitRenderer.material.color = color;
     }
 
+    void AttackPlayer(Collider2D other)
+    {
+        Debug.Log("ATTACK!");
+        if (other.GetComponent<Player>().UseItem(ItemData.ItemType.Knife)){
+            //적 처치 스크립트
+        }
+        else
+        {
+            //플레이어 사망 스크립트
+            StageManager.instance.StageEnd(false, 0);
+        }
+    }
 }
