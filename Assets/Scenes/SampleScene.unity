@@ -3449,6 +3449,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dbfa8eea0d741d4d866da6080c4416a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageName: {fileID: 1089941777}
+  endMessage: {fileID: 169455334}
+  internalTime: {fileID: 10522642}
+  starCounter: {fileID: 1186779219}
+  star: {fileID: 1265646212}
+  NextLevelButton: {fileID: 1523452027}
+  endMessageText: 
 --- !u!114 &394540159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3462,7 +3469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4168,7 +4175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Resume
+  m_text: Next Level
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fda76e35b3905f43bea4c0d8e3384fa, type: 2}
   m_sharedMaterial: {fileID: 3344036572397474457, guid: 6fda76e35b3905f43bea4c0d8e3384fa, type: 2}
@@ -5493,6 +5500,9 @@ MonoBehaviour:
   player: {fileID: 1941578701}
   stageCoinNum: 1
   stageNumber: 1
+  stageEnd: 0
+  stageEndType: 0
+  obtainedCoin: 0
 --- !u!4 &1136656852
 Transform:
   m_ObjectHideFlags: 0
@@ -6464,7 +6474,7 @@ GameObject:
   - component: {fileID: 1523452028}
   - component: {fileID: 1523452027}
   m_Layer: 5
-  m_Name: ResumeButton
+  m_Name: NextLevelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
