@@ -19,6 +19,11 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     public int stageNumber;
 
+    public bool stageEnd = false;
+    public bool stageEndType = false;
+    public int obtainedCoin = 0;
+
+
     #region SINGLETON
     public static StageManager instance;
     void Awake()
@@ -54,11 +59,13 @@ public class StageManager : MonoBehaviour
 
     }
 
-    public void StageEnd(bool stageEndType, int coinAmount)
+    public void StageEnd(bool stageEndType, int coinAmount)//True - 스테이지 완료, False - 스테이지 실패
     {
-        if(coinAmount>=stageCoinNum){
-            
-        }
         isStageOn = false;
+        stageEnd = true;
+        this.stageEndType = stageEndType;
+        this.stageCoinNum = coinAmount;
+        
+        
     }
 }

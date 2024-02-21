@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
+    [SerializeField]
+    public int endStageNumber;
 
 
 
@@ -49,6 +50,6 @@ public class GameManager : MonoBehaviour
 
     public static void ReloadScene()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -41,6 +41,7 @@ public class StageUIScript : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1.0f;
         statusStage.text = "Stage " + StageManager.instance.stageNumber;
 
         StageNumberText.text = "Stage " + StageManager.instance.stageNumber;
@@ -60,16 +61,21 @@ public class StageUIScript : MonoBehaviour
             {
                 Pause();
             }
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                StopCoroutine(StatusCoroutine);
+                if(StatusCoroutine!=null)StopCoroutine(StatusCoroutine);
                 StatusCoroutine = StartCoroutine(StatusUp());
             }
-            if(Input.GetKeyUp(KeyCode.Tab))
+            if(Input.GetKeyUp(KeyCode.Q))
             {
-                StopCoroutine(StatusCoroutine);
+                if (StatusCoroutine != null) StopCoroutine(StatusCoroutine);
                 StatusCoroutine = StartCoroutine(StatusDown());
             }
+        }
+
+        if (StageManager.instance.stageEnd)
+        {
+            GameEnd();
         }
     }
 
@@ -80,9 +86,34 @@ public class StageUIScript : MonoBehaviour
         PausePanel.gameObject.SetActive(true);
     }
 
-    private void PopupUI()
+    private void GameEnd()
     {
+        Time.timeScale = 0.0f;
+        FinishPanel.gameObject.SetActive(true);
+    }
 
+    static public void PopupStatusElement(string option)
+    {
+        switch (option)
+        {
+            case "key":
+                // 열쇠 상태 요소를 팝업합니다.
+                // 예를 들어, 상태 요소 UI를 활성화하고 열쇠 수를 업데이트합니다.
+                // statusKey.gameObject.SetActive(true);
+                // statusKey.text = "X " + StageManager.instance.player.item_Amount[(int)ItemData.ItemType.Key];
+                break;
+            case "coin":
+                // 코인 상태 요소를 팝업합니다.
+                // 예를 들어, 상태 요소 UI를 활성화하고 코인 수를 업데이트합니다.
+                // statusCoin.gameObject.SetActive(true);
+                // statusCoin.text = StageManager.instance.player.item_Amount[(int)ItemData.ItemType.Coin] + " / " + StageManager.instance.stageCoinNum;
+                break;
+            // 다른 옵션에 따른 상태 요소 팝업도 가능합니다.
+            default:
+                // 올바르지 않은 옵션이거나 처리되지 않은 옵션일 경우 처리합니다.
+                Debug.LogWarning("Invalid option for PopupStatusElement: " + option);
+                break;
+        }
     }
 
     private void UIUpdate()
@@ -95,12 +126,29 @@ public class StageUIScript : MonoBehaviour
 
     IEnumerator StatusUp()
     {
-        yield return null;
+        float alpha = InGameUI.alpha;
+        while (alpha < 1.0f)
+        {
+            alpha += statusSpeed;
+            InGameUI.alpha = alpha;
+            yield return null;
+        }
+
+        InGameUI.alpha = 1;
+
     }
 
     IEnumerator StatusDown()
     {
-        yield return null;
+        float alpha = InGameUI.alpha;
+        while (alpha > 0f)
+        {
+            alpha -= statusSpeed;
+            InGameUI.alpha = alpha;
+            yield return null;
+        }
+
+        InGameUI.alpha = 0;
     }
 
     IEnumerator FadeStartPanel()
@@ -131,6 +179,8 @@ public class StageUIScript : MonoBehaviour
 
         StageManager.instance.isStageOn = true;
         StartPanel.gameObject.SetActive(false);
+
+        StatusCoroutine = StartCoroutine(StatusDown());
         
     }
 }
