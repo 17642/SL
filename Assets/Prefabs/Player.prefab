@@ -258,7 +258,6 @@ MonoBehaviour:
   slowMoveSpeedMultiply: 0.6
   isCrawling: 0
   isMoving: 0
-  key_Amount: 0
   item_Amount: 000000000000000000000000
 --- !u!50 &6670761186213856659
 Rigidbody2D:
@@ -612,7 +611,7 @@ MonoBehaviour:
   sharedProfile: {fileID: 11400000, guid: 0e76038f0023fce4cbae0b95c5e0f63b, type: 2}
   isGlobal: 1
   blendDistance: 0
-  weight: 0.924
+  weight: 0
   priority: 0
 --- !u!114 &948232530622228988
 MonoBehaviour:

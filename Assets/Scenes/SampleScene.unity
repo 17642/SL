@@ -4333,11 +4333,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2045351113}
   - {fileID: 1073116160}
   - {fileID: 933461180}
   - {fileID: 1373641575}
   - {fileID: 394540157}
-  - {fileID: 2045351113}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4370,6 +4370,7 @@ MonoBehaviour:
   statusKnife: {fileID: 578044968}
   detectedPanel: {fileID: 2045351114}
   startPanelFadeTime: 0.5
+  detectImageFadeSpeed: 2
   statusSpeed: 0.1
 --- !u!1 &601899426
 GameObject:
@@ -8390,7 +8391,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045351112}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0.46
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

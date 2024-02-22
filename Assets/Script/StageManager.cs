@@ -54,6 +54,11 @@ public class StageManager : MonoBehaviour
         {
             internalTime += Time.deltaTime;
         }
+        detectCount = Enemy.detectEnemyCount;
+        //Debug.Log(Enemy.detectEnemyCount);
+        Enemy.detectEnemyCount = 0;
+        //Debug.Log(detectCount);
+
     }
 
     public void ChgLight()

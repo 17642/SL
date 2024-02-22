@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class StageUIScript : MonoBehaviour
 {
@@ -37,8 +38,8 @@ public class StageUIScript : MonoBehaviour
 
     [SerializeField]
     float startPanelFadeTime;
-
-
+    [SerializeField]
+    float detectImageFadeSpeed;
     [SerializeField]
     float statusSpeed;
 
@@ -52,7 +53,9 @@ public class StageUIScript : MonoBehaviour
         StageNumberText.text = "Stage " + StageManager.instance.stageNumber;
         CoinNumberText.text = "Stars : 0 / " + StageManager.instance.stageCoinNum;
 
+        detectedPanel.alpha = 0;
 
+        StartCoroutine(ManageDetectPanel());
         StartCoroutine(FadeStartPanel());
     }
 
@@ -77,16 +80,7 @@ public class StageUIScript : MonoBehaviour
                 StatusCoroutine = StartCoroutine(StatusDown());
             }
 
-            if (StageManager.instance.detectCount > 0)
-            {
-                //-감지됨- 표시
-                //임시
-                detectedPanel.alpha = 1;
-            }
-            else
-            {
-                detectedPanel.alpha = 0;
-            }
+            
         }
 
         if (StageManager.instance.stageEnd)
@@ -201,5 +195,29 @@ public class StageUIScript : MonoBehaviour
 
         StatusCoroutine = StartCoroutine(StatusDown());
         
+    }
+
+    IEnumerator ManageDetectPanel()
+    {
+        float targetAlpha;
+
+        while (true)
+        {
+
+            if (StageManager.instance.detectCount > 0)
+            {
+                targetAlpha = 1;
+            }
+            else
+            {
+                targetAlpha = 0;
+            }
+
+            float alpha = detectedPanel.alpha;
+            alpha = Mathf.MoveTowards(alpha, targetAlpha, detectImageFadeSpeed * Time.deltaTime);
+            detectedPanel.alpha = alpha;
+            yield return null;
+        }
+
     }
 }

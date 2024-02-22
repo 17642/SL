@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
@@ -48,6 +49,8 @@ public class Enemy : MonoBehaviour
     float enemyWaitingTime;
 
     public Renderer unitRenderer;
+
+    public static int detectEnemyCount = 0;
 
     protected virtual void Start()
     {
@@ -95,6 +98,18 @@ public class Enemy : MonoBehaviour
         }
         enemySight.SetActive(StageManager.instance.stageLight);
         TimerManager();
+
+        
+
+        
+    }
+
+    private void LateUpdate()
+    {
+        if (isDetected)
+        {
+            detectEnemyCount++;
+        }
     }
 
 
@@ -121,6 +136,7 @@ public class Enemy : MonoBehaviour
                     isIrrtated = true;
                     lastKnownPLocation = hit.transform.position;
                     Debug.Log("경계 범위 접근. 마지막 추적 위치: " + lastKnownPLocation);
+
                 }
                 break;
             }
@@ -136,6 +152,7 @@ public class Enemy : MonoBehaviour
             isIrrtated = true;
             lastKnownPLocation = input.transform.position;
             Debug.Log("적 감지(소음) 거리: " + Vector2.Distance(lastKnownPLocation, transform.position));
+
         }
     }
 
@@ -266,6 +283,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("ATTACK!");
         if (other.GetComponent<Player>().UseItem(ItemData.ItemType.Knife)){
             //적 처치 스크립트
+            Destroy(gameObject);
         }
         else
         {
