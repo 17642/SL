@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -91,5 +92,35 @@ public class GameManager : MonoBehaviour
     void SaveStageData()
     {
 
+    }
+
+    public void RecordStage(int stageNum, float time, int obtainedCoin)
+    {
+        if (stageNum > endStageNumber)
+        {
+            Debug.LogWarning("스테이지 번호가 마지막 스테이지 번호보다 더 큽니다.");
+            return;
+        }
+
+        stages[stageNum - 1].hasCleared = true;
+        if (obtainedCoin == stages[stageNum - 1].maxCoinNumber)
+        {
+            if (stages[endStageNumber - 1].time == 0 || time < stages[endStageNumber - 1].time)
+            {
+                stages[endStageNumber - 1].time = time;
+            }
+
+            stages[stageNum - 1].obtainedCoinNumber = obtainedCoin;
+
+            return;
+        }
+        else
+        {
+            stages[stageNum - 1].time = 0;
+            if (stages[stageNum - 1].obtainedCoinNumber < obtainedCoin)
+            {
+                stages[stageNum - 1].obtainedCoinNumber = obtainedCoin;
+            }
+        }
     }
 }

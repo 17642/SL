@@ -73,6 +73,11 @@ public class StageManager : MonoBehaviour
         stageEnd = true;
         this.stageEndType = stageEndType;
         this.obtainedCoin = coinAmount;
+
+        if (stageEndType)
+        {
+            GameManager.instance.RecordStage(stageNumber, internalTime, coinAmount);
+        }
         
         
     }
