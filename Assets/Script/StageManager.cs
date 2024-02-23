@@ -77,6 +77,7 @@ public class StageManager : MonoBehaviour
         if (stageEndType)
         {
             GameManager.instance.RecordStage(stageNumber, internalTime, coinAmount);
+            GameManager.instance.SaveStageData();
         }
         
         

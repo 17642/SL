@@ -4,7 +4,9 @@ using TMPro;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
+[System.Serializable]
 public struct StageData
 {
     public bool hasCleared;
@@ -12,12 +14,32 @@ public struct StageData
     public int maxCoinNumber;
     public int obtainedCoinNumber;
 
-    
-    
+
+}
+[System.Serializable]
+public struct PlayerData
+{
+    public bool tutorialFinished;
+    public int maxStageNumber;
+}
+
+[System.Serializable]
+public class SaveData
+{
+    public PlayerData pd;
+    public StageData[] sd;
+
+    public SaveData(PlayerData pd, StageData[] sd)
+    {
+        this.pd = pd;
+        this.sd = sd;
+    }
+
 }
 
 public class GameManager : MonoBehaviour
 {
+    readonly string saveName = "save.json";
     
     [SerializeField]
     public int endStageNumber;
@@ -25,7 +47,7 @@ public class GameManager : MonoBehaviour
     public StageData[] stages;
     public int[] stageMaxCoins = { 3, 3, 4 };
 
-    public bool tutorialFinished = false;
+    public PlayerData playerData;
 
 
 
@@ -76,22 +98,37 @@ public class GameManager : MonoBehaviour
     {
         for(int i=0; i<stages.Length; i++)
         {
-            StageData data = stages[i];
-            data.hasCleared = false;
-            data.maxCoinNumber = stageMaxCoins[i];
-            data.obtainedCoinNumber = 0;
-            data.time = 0;
+            stages[i].hasCleared = false;
+            stages[i].maxCoinNumber = stageMaxCoins[i];
+            stages[i].obtainedCoinNumber = 0;
+            stages[i].time = 0;
         }
     }
 
     void LoadStageData()
     {
+        if (!File.Exists(saveName))
+        {
+            Debug.Log("저장 파일이 없습니다.");
+            return;
+        }
 
+        SaveData save = new SaveData(playerData, stages);
+        string json = File.ReadAllText(saveName);
+        save = JsonUtility.FromJson<SaveData>(json);
+
+        playerData = save.pd;
+        stages = save.sd;
     }
 
-    void SaveStageData()
+    public void SaveStageData()
     {
 
+        SaveData save = new SaveData(playerData, stages);
+
+        string json = JsonUtility.ToJson(save);
+
+        File.WriteAllText(saveName, json);
     }
 
     public void RecordStage(int stageNum, float time, int obtainedCoin)

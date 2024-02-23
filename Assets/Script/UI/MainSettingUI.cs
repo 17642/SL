@@ -8,6 +8,7 @@ public class MainSettingUI : MonoBehaviour
     public void RemoveButtonClick()
     {
         GameManager.instance.ResetStageData();
+        GameManager.instance.SaveStageData();
     }
 
     public void ExitButtonClick()
