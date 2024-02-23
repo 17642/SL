@@ -72,7 +72,7 @@ public class StageManager : MonoBehaviour
         isStageOn = false;
         stageEnd = true;
         this.stageEndType = stageEndType;
-        this.stageCoinNum = coinAmount;
+        this.obtainedCoin = coinAmount;
         
         
     }

@@ -23,6 +23,11 @@ public class CameraScript : MonoBehaviour
 
     private Transform prb;
 
+    [SerializeField]
+    private float shakeDuration;
+    [SerializeField]
+    private float shakeMagnitude;
+
     void Start()
     {
         privateLightStatus = StageManager.instance.stageLight;
@@ -76,6 +81,22 @@ public class CameraScript : MonoBehaviour
         }
     }
 
+    public void ShakeCam()
+    {
+        StartCoroutine(Shake(shakeMagnitude,shakeDuration));
+    }
 
+    IEnumerator Shake(float ShakeAmount, float ShakeTime)
+    {
+        float timer = 0;
+        while (timer <= ShakeTime)
+        {
+            transform.localPosition = (Vector2)UnityEngine.Random.insideUnitCircle * ShakeAmount;
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -1f);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        transform.localPosition = new Vector3(0f, 0f, -1f);
+    }
 
 }

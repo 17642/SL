@@ -35,6 +35,14 @@ public class EnemyTrace : MonoBehaviour
         privateLightStatus = StageManager.instance.stageLight;
     }
 
+    private void Update()
+    {
+        if(ParentTransform == null)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Update is called once per frame
     void LateUpdate()
     {

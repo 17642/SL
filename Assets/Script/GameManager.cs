@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     public StageData[] stages;
     public int[] stageMaxCoins = { 3, 3, 4 };
 
+    public bool tutorialFinished = false;
+
 
 
 

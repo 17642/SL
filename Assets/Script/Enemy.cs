@@ -179,6 +179,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Player와 직접 접촉");
+            AttackPlayer(collision.collider);
+        }
+    }
+
     void MoveToDetectedLocation()
     {//Unity.A
         nav.SetDestination(lastKnownPLocation);
@@ -281,6 +290,7 @@ public class Enemy : MonoBehaviour
     void AttackPlayer(Collider2D other)
     {
         Debug.Log("ATTACK!");
+        other.GetComponent<Player>().showDamageEffect(transform);
         if (other.GetComponent<Player>().UseItem(ItemData.ItemType.Knife)){
             //적 처치 스크립트
             Destroy(gameObject);

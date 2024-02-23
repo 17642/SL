@@ -43,10 +43,14 @@ public class StageUIScript : MonoBehaviour
     [SerializeField]
     float statusSpeed;
 
+    public static PopupPanelScript PopupPanel;
+
     Coroutine StatusCoroutine;
 
     void Start()
     {
+        PopupPanel = GetComponentInChildren<PopupPanelScript>();
+
         Time.timeScale = 1.0f;
         statusStage.text = "Stage " + StageManager.instance.stageNumber;
 
@@ -100,32 +104,6 @@ public class StageUIScript : MonoBehaviour
     {
         Time.timeScale = 0.0f;
         FinishPanel.gameObject.SetActive(true);
-    }
-
-    static public void PopupStatusElement(string option)
-    {
-        switch (option)
-        {
-            case "key":
-                // 열쇠 상태 요소를 팝업합니다.
-                // 예를 들어, 상태 요소 UI를 활성화하고 열쇠 수를 업데이트합니다.
-                // statusKey.gameObject.SetActive(true);
-                // statusKey.text = "X " + StageManager.instance.player.item_Amount[(int)ItemData.ItemType.Key];
-                break;
-            case "coin":
-                // 코인 상태 요소를 팝업합니다.
-                // 예를 들어, 상태 요소 UI를 활성화하고 코인 수를 업데이트합니다.
-                // statusCoin.gameObject.SetActive(true);
-                // statusCoin.text = StageManager.instance.player.item_Amount[(int)ItemData.ItemType.Coin] + " / " + StageManager.instance.stageCoinNum;
-                break;
-            case "knife":
-                break;
-            // 다른 옵션에 따른 상태 요소 팝업도 가능합니다.
-            default:
-                // 올바르지 않은 옵션이거나 처리되지 않은 옵션일 경우 처리합니다.
-                Debug.LogWarning("Invalid option for PopupStatusElement: " + option);
-                break;
-        }
     }
 
     private void UIUpdate()

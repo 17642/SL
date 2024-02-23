@@ -256,6 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3.5
   slowMoveSpeedMultiply: 0.6
+  ps: {fileID: 4065645304924234443, guid: bcd70fd4a25fa1849a2f9ae166b80409, type: 3}
   isCrawling: 0
   isMoving: 0
   item_Amount: 000000000000000000000000
@@ -628,3 +629,5 @@ MonoBehaviour:
   PostProcessingVolumeLow: 1
   PostProcessingVolumeHigh: 0
   colorGradingTime: 0.7
+  shakeDuration: 0.2
+  shakeMagnitude: 0.5

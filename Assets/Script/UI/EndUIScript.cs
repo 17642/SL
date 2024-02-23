@@ -40,6 +40,7 @@ public class EndUIScript : MonoBehaviour
         }
         else
         {
+            endMessageText = "Cleared";
             starCounter.text = StageManager.instance.obtainedCoin.ToString() + " / " + StageManager.instance.stageCoinNum.ToString();
         }
 

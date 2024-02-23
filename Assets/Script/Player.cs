@@ -10,6 +10,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float slowMoveSpeedMultiply = 0.6f;
 
+    Camera cam;
+    [SerializeField]
+    GameObject ps;
+    
+
     public bool isCrawling = false;
     public bool isMoving = false;
 
@@ -24,6 +29,7 @@ public class Player : MonoBehaviour
     {
         soundRadius = transform.Find("SoundRadius").gameObject;
         rb=GetComponent<Rigidbody2D>();
+        cam = transform.Find("LightCamera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -32,9 +38,15 @@ public class Player : MonoBehaviour
         if (StageManager.instance.isStageOn)
         {
             toggleCrawl();
-            playerMove();
+            
             soundRadius.SetActive(isMoving && !StageManager.instance.stageLight);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if(StageManager.instance.isStageOn)
+        playerMove();
     }
 
     void toggleCrawl()
@@ -62,6 +74,7 @@ public class Player : MonoBehaviour
     public void GetItem(GameObject input)
     {
         ItemData.ItemType itemType = input.GetComponent<ObtainableItem>().GetItemType();
+        StageUIScript.PopupPanel.PopupPanel(itemType, true);
         item_Amount[(int)itemType]++;
         Destroy(input);
     }
@@ -70,6 +83,7 @@ public class Player : MonoBehaviour
     {
         if (item_Amount[(int)type] > 0)
         {
+            StageUIScript.PopupPanel.PopupPanel(type, false);
             item_Amount[(int)type]--;
             return true;
         }
@@ -77,5 +91,14 @@ public class Player : MonoBehaviour
 
         return false;
     }
+
+    public void showDamageEffect(Transform Object)
+    {
+        cam.GetComponent<CameraScript>().ShakeCam();
+        Vector3 midPoint = (transform.position + Object.position) / 2;
+
+        Instantiate(ps, midPoint, Quaternion.identity);
+    }
+
 
 }
