@@ -547,10 +547,15 @@ MonoBehaviour:
   enemySight: {fileID: 1497084136631290649}
   soundListenCooldown: 0.5
   enemyWaitingTime: 0.3
+  navMeshReloadTime: 1
   unitRenderer: {fileID: 0}
   patrolPoint: {fileID: 8407943348269399591}
   patrolType: 1
   patrolPointDelay: 0.2
+  velocity: 0
+  remainingDistance: 0
+  Destination: {x: 0, y: 0}
+  pathStatus: 0
 --- !u!82 &5865749147490730737
 AudioSource:
   m_ObjectHideFlags: 0
@@ -572,7 +577,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 7
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -607,7 +612,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -23,6 +23,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     float crawlVolume;
 
+    float originVolume;
+
     AudioSource[] audioSource;
     // Start is called before the first frame update
     void Start()
@@ -30,6 +32,8 @@ public class SoundManager : MonoBehaviour
         audioSource = GetComponents<AudioSource>();
         audioSource[0].loop = false;
         audioSource[1].loop = true;
+
+        originVolume = audioSource[1].volume;
 
         audioSource[1].clip = walkSound;
     }
@@ -71,11 +75,11 @@ public class SoundManager : MonoBehaviour
     {
         if (player.isCrawling)
         {
-            audioSource[1].volume = crawlVolume;
+            audioSource[1].volume = originVolume* crawlVolume;
         }
         else
         {
-            audioSource[1].volume = 1;
+            audioSource[1].volume = originVolume;
         }
         if (audioSource[1].isPlaying && !player.isMoving)
         {

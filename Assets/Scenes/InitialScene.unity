@@ -4466,7 +4466,7 @@ MonoBehaviour:
   m_text: InstContent
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 862456a473ed0994ca2eb924475f6e31, type: 2}
-  m_sharedMaterial: {fileID: -5188475668199533455, guid: 91c2188ce837778438bb3f63b7e25acc, type: 2}
+  m_sharedMaterial: {fileID: 6778124975904265038, guid: 862456a473ed0994ca2eb924475f6e31, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

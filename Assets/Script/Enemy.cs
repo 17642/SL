@@ -48,11 +48,18 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     float enemyWaitingTime;
 
+    [SerializeField]
+    float navMeshReloadTime;
+
+    float navMeshTimer;
+
     public Renderer unitRenderer;
 
     public static int detectEnemyCount = 0;
 
     AudioSource audioSource;
+
+
 
     protected virtual void Start()
     {
@@ -124,6 +131,30 @@ public class Enemy : MonoBehaviour
         if (isDetected)
         {
             detectEnemyCount++;
+        }
+
+        ReloadNavMesh();
+        
+    }
+
+    void ReloadNavMesh()
+    {
+        if (nav.velocity.magnitude <= 0.01f && !nav.hasPath && nav.pathStatus == NavMeshPathStatus.PathComplete)
+        {
+            navMeshTimer += Time.deltaTime;
+            if (navMeshTimer >= navMeshReloadTime)
+            {
+                Debug.Log("Character stuck");
+                nav.enabled = false;
+                nav.enabled = true;
+                Debug.Log("navmesh re enabled");
+                // navmesh agent will start moving again
+                navMeshTimer = 0;
+            }
+        }
+        else
+        {
+            navMeshTimer = 0;
         }
     }
 
@@ -265,15 +296,13 @@ public class Enemy : MonoBehaviour
             {
                 //transform.rotation = Quaternion.LookRotation(Vector3.forward, vel);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation,Quaternion.LookRotation(Vector3.forward,vel), 2f);
-                
+                yield return null;
+
             }
             else
             {
                 break;
             }
-
-            
-            yield return null;
 
 
         }
@@ -297,6 +326,7 @@ public class Enemy : MonoBehaviour
             soundListenTimer -= Time.deltaTime; // 타이머 감소
             soundListenTimer = Mathf.Max(soundListenTimer, 0f); // 타이머가 음수가 되지 않도록 보정
         }
+
     }
 
     void SetUnitAlpha()

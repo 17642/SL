@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -28,6 +29,16 @@ public class PatrolEnemy : Enemy
 
     Coroutine patrol;
 
+    //정보 표시
+    [SerializeField]
+    private float velocity;
+    [SerializeField]
+    private float remainingDistance;
+    [SerializeField]
+    private Vector2 Destination;
+    [SerializeField]
+    NavMeshPathStatus pathStatus;
+
     protected override void Start()
     {
         //Debug.Log(nav);
@@ -48,6 +59,8 @@ public class PatrolEnemy : Enemy
             StopCoroutine(patrol);
             StartCoroutine(PatrolCheck());
         }
+
+        UpdateNavMeshInfo();
     }
 
     void SetOriginPos()
@@ -115,7 +128,19 @@ public class PatrolEnemy : Enemy
 
         while (!isIrrtated)
         {
-            yield return StartCoroutine(FaceCoroutine());
+            Vector3 velocity = nav.velocity.normalized; // NavMeshAgent의 정규화된 속도 벡터
+            Vector3 forwardDirection = transform.forward.normalized; // 게임 오브젝트의 정규화된 전방 벡터
+
+            float angleDifference = Vector3.Angle(velocity, forwardDirection); // 두 벡터 간의 각도 차이를 계산
+
+            float tolerance = 5f; // 허용할 최대 각도 차이 (조정 가능)
+
+            if (angleDifference >= tolerance)
+            {
+                StartCoroutine(FaceCoroutine());
+            }
+
+
 
             if (((Vector2)transform.position - (Vector2)patrolPoint.point[currentPatrolIndex].position).magnitude < 0.1f)
             {
@@ -143,6 +168,14 @@ public class PatrolEnemy : Enemy
         }
         patrolCounter = false;
         patrol = StartCoroutine(PatrolCoroutine());
+    }
+
+    private void UpdateNavMeshInfo()
+    {
+        velocity = nav.velocity.magnitude;
+        Destination = nav.destination;
+        remainingDistance = nav.remainingDistance;
+        pathStatus = nav.pathStatus;
     }
 
 }
