@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
+    [SerializeField]
+    bool DebugStage;
+
     public bool stageLight = false;//false - dark, true - bright
     [SerializeField]
     public float internalTime = 0.0f;
@@ -44,7 +47,9 @@ public class StageManager : MonoBehaviour
     void Start()
     {
         isStageOn = true;
-        //stageCoinNum = GameManager.instance.stageMaxCoins[stageNumber - 1];
+
+        if(!DebugStage)
+        stageCoinNum = GameManager.instance.stageMaxCoins[stageNumber - 1];
     }
 
     // Update is called once per frame

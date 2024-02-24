@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class MainSettingUI : MonoBehaviour
 {
+    [SerializeField]
+    GameObject instructionScreen;
+    public void InstructionButtonClick()
+    {
+        instructionScreen.SetActive(true);
+    }
     // Start is called before the first frame update
     public void RemoveButtonClick()
     {

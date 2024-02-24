@@ -30,7 +30,7 @@ public class MainUI : MonoBehaviour
 
     public void StartButtonClick()
     {
-        GameManager.instance.ChangeScene("SampleScene");
+        GameManager.instance.ChangeScene("StageSelect");
     }
 
 
