@@ -22,6 +22,9 @@ public class StageManager : MonoBehaviour
     [SerializeField]
     public int stageNumber;
 
+    [SerializeField]
+    public SoundManager soundManager;
+
     public bool stageEnd = false;
     public bool stageEndType = false;
     public int obtainedCoin = 0;
@@ -74,6 +77,8 @@ public class StageManager : MonoBehaviour
 
     public void StageEnd(bool stageEndType, int coinAmount)//True - 스테이지 완료, False - 스테이지 실패
     {
+        soundManager.StopAllSounds();
+
         isStageOn = false;
         stageEnd = true;
         this.stageEndType = stageEndType;

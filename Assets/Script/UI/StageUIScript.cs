@@ -95,6 +95,8 @@ public class StageUIScript : MonoBehaviour
 
     private void Pause()
     {
+        StageManager.instance.soundManager.StopAllSounds();
+
         StageManager.instance.isStageOn = false;
         Time.timeScale = 0.0f;
         PausePanel.gameObject.SetActive(true);

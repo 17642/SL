@@ -8,6 +8,7 @@ public class DoorOpenArea : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Player")){
             if(other.GetComponent<Player>().UseItem(ItemData.ItemType.Key)){
+                StageManager.instance.soundManager.PlaySound(Sound.Unlock);
                 gameObject.SetActive(false);
             }
         }

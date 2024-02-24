@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainSettingUI : MonoBehaviour
 {
     [SerializeField]
     GameObject instructionScreen;
+    [SerializeField]
+    Slider volumeSlider;
     public void InstructionButtonClick()
     {
         instructionScreen.SetActive(true);
@@ -22,4 +25,16 @@ public class MainSettingUI : MonoBehaviour
         gameObject.SetActive(false);
         GameManager.instance.SaveStageData();
     }
+
+    public void SoundSliderChange()
+    {
+        AudioListener.volume = volumeSlider.value;
+        GameManager.instance.playerData.volumeValue = volumeSlider.value;
+    }
+
+    private void Start()
+    {
+        volumeSlider.value = GameManager.instance.playerData.volumeValue;
+    }
+
 }

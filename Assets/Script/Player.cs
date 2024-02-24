@@ -73,6 +73,7 @@ public class Player : MonoBehaviour
 
     public void GetItem(GameObject input)
     {
+        StageManager.instance.soundManager.PlaySound(Sound.Pickup);
         ItemData.ItemType itemType = input.GetComponent<ObtainableItem>().GetItemType();
         StageUIScript.PopupPanel.PopupPanel(itemType, true);
         item_Amount[(int)itemType]++;
@@ -94,6 +95,7 @@ public class Player : MonoBehaviour
 
     public void showDamageEffect(Transform Object)
     {
+        StageManager.instance.soundManager.PlaySound(Sound.Attack);
         cam.GetComponent<CameraScript>().ShakeCam();
         Vector3 midPoint = (transform.position + Object.position) / 2;
 

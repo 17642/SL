@@ -52,8 +52,11 @@ public class Enemy : MonoBehaviour
 
     public static int detectEnemyCount = 0;
 
+    AudioSource audioSource;
+
     protected virtual void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         unitRenderer = GetComponent<Renderer>();
         //playerLayerMask = 1<<LayerMask.NameToLayer("Player");
         originLocation = transform.position;
@@ -99,9 +102,21 @@ public class Enemy : MonoBehaviour
         enemySight.SetActive(StageManager.instance.stageLight);
         TimerManager();
 
-        
 
+        PlaySoundOnWalking();
         
+    }
+
+    void PlaySoundOnWalking()
+    {
+        if (nav.velocity.magnitude > 0 && !audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
+        else if (nav.velocity.magnitude == 0 && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
     }
 
     private void LateUpdate()
@@ -137,6 +152,10 @@ public class Enemy : MonoBehaviour
                     lastKnownPLocation = hit.transform.position;
                     Debug.Log("경계 범위 접근. 마지막 추적 위치: " + lastKnownPLocation);
 
+                }
+                else
+                {
+                    AttackPlayer(hit.collider);
                 }
                 break;
             }

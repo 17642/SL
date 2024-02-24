@@ -28,6 +28,7 @@ public class CameraScript : MonoBehaviour
     [SerializeField]
     private float shakeMagnitude;
 
+
     void Start()
     {
         privateLightStatus = StageManager.instance.stageLight;
@@ -43,6 +44,7 @@ public class CameraScript : MonoBehaviour
 
         prb = transform.parent;
         //gameObject.transform.SetParent(null);
+
     }
 
     void LateUpdate()

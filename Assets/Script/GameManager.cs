@@ -21,6 +21,7 @@ public struct PlayerData
 {
     public bool tutorialFinished;
     public int maxStageNumber;
+    public float volumeValue;
 }
 
 [System.Serializable]
@@ -69,10 +70,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
+
         playerData = new PlayerData();
         stages = new StageData[endStageNumber];
         ResetStageData();
         LoadStageData();
+
+        AudioListener.volume = playerData.volumeValue;
     }
 
     // Update is called once per frame
