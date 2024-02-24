@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 15
   m_Viewport: {fileID: 1824029592}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1798505687}
@@ -2229,7 +2229,8 @@ MonoBehaviour:
       \uD50C\uB808\uC774\uC5B4 \uC8FC\uBCC0\uC758 \uC6D0\uC740 \uC18C\uB9AC \uBC94\uC704\uC785\uB2C8\uB2E4.\n\n\uC801\uC740 
       \uC0BC\uAC01\uD615\uC73C\uB85C \uB098\uD0C0\uB0A9\uB2C8\uB2E4. \uC801 \uC55E\uC5D0
       \uC788\uB294 \uBD80\uCC44\uAF34 \uBAA8\uC591 \uBC94\uC704\uB294 \uC2DC\uC57C
-      \uBC94\uC704\uC785\uB2C8\uB2E4.\n\n"
+      \uBC94\uC704\uC785\uB2C8\uB2E4.\n\n\uC801\uC774 \uB2F9\uC2E0\uC744 \uD0D0\uC9C0\uD588\uC744
+      \uB54C\uC5D0\uB294 Detected \uAE00\uADC0\uAC00 \uC0C1\uB2E8\uC5D0 \uB098\uD0C0\uB0A9\uB2C8\uB2E4."
   - instNumber: 2
     usedSpriteAsset: {fileID: 0}
     instName: Light
@@ -2241,9 +2242,7 @@ MonoBehaviour:
       \uD658\uACBD\uC5D0\uC11C\uB294 \uC2DC\uC57C \uBC94\uC704\uAC00 \uBE44\uD65C\uC131\uD654\uB429\uB2C8\uB2E4.\n\n\uC5B4\uB450\uC6B4
       \uD658\uACBD\uC5D0\uC11C\uB294 \uC801\uC744 \uC9C1\uC811 \uBCFC \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.
       \uB300\uC2E0 \uC801\uC774 \uC774\uB3D9\uC2DC\uC5D0 \uB098\uC624\uB294 \uD754\uC801\uC744
-      \uC774\uC6A9\uD574 \uC704\uCE58\uB97C \uD30C\uC545\uD558\uC138\uC694.\n\n\uC801\uC774
-      \uB2F9\uC2E0\uC744 \uD0D0\uC9C0\uD588\uC744 \uB54C\uC5D0\uB294 Detected \uAE00\uADC0\uAC00
-      \uC0C1\uB2E8\uC5D0 \uB098\uD0C0\uB0A9\uB2C8\uB2E4."
+      \uC774\uC6A9\uD574 \uC704\uCE58\uB97C \uD30C\uC545\uD558\uC138\uC694."
   - instNumber: 3
     usedSpriteAsset: {fileID: 0}
     instName: Items
@@ -3522,9 +3521,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1513597551}
-        m_TargetAssemblyTypeName: MainSettingUI, Assembly-CSharp
-        m_MethodName: ExitButtonClick
+      - m_Target: {fileID: 977711008}
+        m_TargetAssemblyTypeName: InstructionUI, Assembly-CSharp
+        m_MethodName: ClickExitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4002,7 +4001,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: InstContent
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 91c2188ce837778438bb3f63b7e25acc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 862456a473ed0994ca2eb924475f6e31, type: 2}
   m_sharedMaterial: {fileID: -5188475668199533455, guid: 91c2188ce837778438bb3f63b7e25acc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4066,7 +4065,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1574003326
@@ -4861,7 +4860,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1513597551}
         m_TargetAssemblyTypeName: MainSettingUI, Assembly-CSharp
-        m_MethodName: ExitButtonClick
+        m_MethodName: InstructionButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
