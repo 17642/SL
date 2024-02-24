@@ -63,6 +63,16 @@ public class GameManager : MonoBehaviour
         } else {
             Destroy(gameObject);
         }
+
+
+        playerData = new PlayerData();
+        stages = new StageData[endStageNumber];
+        ResetStageData();
+        LoadStageData();
+
+        AudioListener.volume = playerData.volumeValue;
+
+
     }
     #endregion
 
@@ -72,12 +82,7 @@ public class GameManager : MonoBehaviour
     {
 
 
-        playerData = new PlayerData();
-        stages = new StageData[endStageNumber];
-        ResetStageData();
-        LoadStageData();
-
-        AudioListener.volume = playerData.volumeValue;
+        
     }
 
     // Update is called once per frame
@@ -113,6 +118,7 @@ public class GameManager : MonoBehaviour
 
         playerData.tutorialFinished = false;
         playerData.maxStageNumber = endStageNumber;
+        playerData.volumeValue = 0.5f;
     }
 
     void LoadStageData()
@@ -146,6 +152,7 @@ public class GameManager : MonoBehaviour
             stages[index] = stageData;
             index++;
         }
+        playerData = save.pd;
     }
 
     public void SaveStageData()
