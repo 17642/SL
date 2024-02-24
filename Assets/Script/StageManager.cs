@@ -45,14 +45,16 @@ public class StageManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (!DebugStage)
+            stageCoinNum = GameManager.instance.stageMaxCoins[stageNumber - 1];
     }
     #endregion
     void Start()
     {
         isStageOn = true;
 
-        if(!DebugStage)
-        stageCoinNum = GameManager.instance.stageMaxCoins[stageNumber - 1];
+        
     }
 
     // Update is called once per frame

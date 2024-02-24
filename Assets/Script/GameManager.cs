@@ -176,9 +176,9 @@ public class GameManager : MonoBehaviour
         stages[stageNum - 1].hasCleared = true;
         if (obtainedCoin == stages[stageNum - 1].maxCoinNumber)
         {
-            if (stages[endStageNumber - 1].time == 0 || time < stages[endStageNumber - 1].time)
+            if (stages[stageNum - 1].time == 0 || time < stages[stageNum - 1].time)
             {
-                stages[endStageNumber - 1].time = time;
+                stages[stageNum - 1].time = time;
             }
 
             stages[stageNum - 1].obtainedCoinNumber = obtainedCoin;

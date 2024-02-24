@@ -40,7 +40,7 @@ public class StageSelectButtonScript : MonoBehaviour
         else
         {
             noClear = noAccesable;
-            btn.enabled = false;
+            btn.interactable = false;
         }
 
         notClearedText.text = noClear;
