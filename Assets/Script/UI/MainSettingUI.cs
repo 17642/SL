@@ -20,5 +20,6 @@ public class MainSettingUI : MonoBehaviour
     public void ExitButtonClick()
     {
         gameObject.SetActive(false);
+        GameManager.instance.SaveStageData();
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.Rendering;
+using System;
 
 [System.Serializable]
 class InstructionField
@@ -37,8 +38,12 @@ public class InstructionUI : MonoBehaviour
         {
             button.GetComponentInChildren<TextMeshProUGUI>().text = instField[index].instName;
             index++;
-
         }
+
+        instScreen.text = instField[0].inst;
+        if (instField[0].usedSpriteAsset != null)
+            instScreen.spriteAsset = instField[0].usedSpriteAsset;
+        instName.text = instField[0].instName;
 
     }
 

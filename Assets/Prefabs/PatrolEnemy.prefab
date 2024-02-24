@@ -549,6 +549,7 @@ MonoBehaviour:
   unitRenderer: {fileID: 0}
   patrolPoint: {fileID: 8407943348269399591}
   patrolType: 1
+  patrolPointDelay: 0.2
 --- !u!1 &7988397583539177132
 GameObject:
   m_ObjectHideFlags: 0

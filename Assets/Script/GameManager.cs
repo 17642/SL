@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     public int endStageNumber;
 
     public StageData[] stages;
+    [SerializeField]
     public int[] stageMaxCoins = { 3, 3, 4 };
 
     public PlayerData playerData;
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        playerData = new PlayerData();
         stages = new StageData[endStageNumber];
         ResetStageData();
         LoadStageData();
@@ -103,6 +105,9 @@ public class GameManager : MonoBehaviour
             stages[i].obtainedCoinNumber = 0;
             stages[i].time = 0;
         }
+
+        playerData.tutorialFinished = false;
+        playerData.maxStageNumber = endStageNumber;
     }
 
     void LoadStageData()
@@ -115,10 +120,27 @@ public class GameManager : MonoBehaviour
 
         SaveData save = new SaveData(playerData, stages);
         string json = File.ReadAllText(saveName);
+
+        if(json == "")
+        {
+            Debug.Log("세이브 형식에 오류가 있습니다.");
+            return;
+        }
+
         save = JsonUtility.FromJson<SaveData>(json);
 
-        playerData = save.pd;
-        stages = save.sd;
+        if(save.pd.maxStageNumber > playerData.maxStageNumber)
+        {
+            Debug.Log("세이브 형식에 오류가 있습니다.");
+            return;
+        }
+
+        int index = 0;
+        foreach (StageData stageData in save.sd)
+        {
+            stages[index] = stageData;
+            index++;
+        }
     }
 
     public void SaveStageData()
