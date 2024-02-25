@@ -22,6 +22,7 @@ public struct PlayerData
     public bool tutorialFinished;
     public int maxStageNumber;
     public float volumeValue;
+    public bool fullScreen;
 }
 
 [System.Serializable]
@@ -67,11 +68,13 @@ public class GameManager : MonoBehaviour
 
         playerData = new PlayerData();
         stages = new StageData[endStageNumber];
+        playerData.fullScreen = false;
+        
         ResetStageData();
         LoadStageData();
 
         AudioListener.volume = playerData.volumeValue;
-
+        Screen.fullScreen = playerData.fullScreen;
 
     }
     #endregion

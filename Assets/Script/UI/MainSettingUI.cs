@@ -9,6 +9,8 @@ public class MainSettingUI : MonoBehaviour
     GameObject instructionScreen;
     [SerializeField]
     Slider volumeSlider;
+    [SerializeField]
+    Toggle fullScreenCheckbox;
     public void InstructionButtonClick()
     {
         instructionScreen.SetActive(true);
@@ -30,6 +32,12 @@ public class MainSettingUI : MonoBehaviour
     {
         AudioListener.volume = volumeSlider.value;
         GameManager.instance.playerData.volumeValue = volumeSlider.value;
+    }
+
+    public void FullScreenCheckbox()
+    {
+        Screen.fullScreen = fullScreenCheckbox.isOn;
+        GameManager.instance.playerData.fullScreen = fullScreenCheckbox.isOn;
     }
 
     private void Start()

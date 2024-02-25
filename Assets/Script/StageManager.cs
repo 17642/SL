@@ -53,7 +53,7 @@ public class StageManager : MonoBehaviour
     void Start()
     {
         isStageOn = true;
-
+        Cursor.lockState = CursorLockMode.Locked;
         
     }
 
@@ -63,11 +63,18 @@ public class StageManager : MonoBehaviour
         if (isStageOn)
         {
             internalTime += Time.deltaTime;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
         }
         detectCount = Enemy.detectEnemyCount;
         //Debug.Log(Enemy.detectEnemyCount);
         Enemy.detectEnemyCount = 0;
         //Debug.Log(detectCount);
+
+
 
     }
 
