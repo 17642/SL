@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        stages[stageNum - 1].hasCleared = true;
+
         if (obtainedCoin == stages[stageNum - 1].maxCoinNumber)
         {
             if (stages[stageNum - 1].time == 0 || time < stages[stageNum - 1].time)
@@ -185,15 +185,22 @@ public class GameManager : MonoBehaviour
 
             stages[stageNum - 1].obtainedCoinNumber = obtainedCoin;
 
-            return;
         }
         else
         {
-            stages[stageNum - 1].time = 0;
+            if (!stages[stageNum - 1].hasCleared)
+            {
+                stages[stageNum - 1].time = 0;
+            }
+
             if (stages[stageNum - 1].obtainedCoinNumber < obtainedCoin)
             {
                 stages[stageNum - 1].obtainedCoinNumber = obtainedCoin;
             }
         }
+
+        stages[stageNum - 1].hasCleared = true;
+
+
     }
 }

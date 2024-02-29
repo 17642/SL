@@ -94,5 +94,8 @@ public class SoundManager : MonoBehaviour
     {
         audioSource[0].Stop();
         audioSource[1].Stop();
+
+        audioSource[0].clip = null;
+        audioSource[1].clip = null;
     }
 }
