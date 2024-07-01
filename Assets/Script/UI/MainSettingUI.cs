@@ -11,6 +11,8 @@ public class MainSettingUI : MonoBehaviour
     Slider volumeSlider;
     [SerializeField]
     Toggle fullScreenCheckbox;
+    [SerializeField]
+    Toggle touchInputCheckbox;
     public void InstructionButtonClick()
     {
         instructionScreen.SetActive(true);
@@ -40,9 +42,16 @@ public class MainSettingUI : MonoBehaviour
         GameManager.instance.playerData.fullScreen = fullScreenCheckbox.isOn;
     }
 
+    public void TouchInputCheckbox()
+    {
+        GameManager.instance.playerData.touchInput = touchInputCheckbox.isOn;
+    }
+
     private void Start()
     {
         volumeSlider.value = GameManager.instance.playerData.volumeValue;
+        fullScreenCheckbox.isOn = GameManager.instance.playerData.fullScreen;
+        touchInputCheckbox.isOn = GameManager.instance.playerData.touchInput;
     }
 
 }

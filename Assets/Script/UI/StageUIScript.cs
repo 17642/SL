@@ -17,6 +17,9 @@ public class StageUIScript : MonoBehaviour
     CanvasGroup FinishPanel;
 
     [SerializeField]
+    GameObject TI;
+
+    [SerializeField]
     TMPro.TMP_Text StageNumberText;
     [SerializeField]
     TMPro.TMP_Text CoinNumberText;
@@ -43,6 +46,8 @@ public class StageUIScript : MonoBehaviour
     [SerializeField]
     float statusSpeed;
 
+    bool tToggle = false;
+
     public static PopupPanelScript PopupPanel;
 
     Coroutine StatusCoroutine;
@@ -59,6 +64,11 @@ public class StageUIScript : MonoBehaviour
 
         detectedPanel.alpha = 0;
 
+        if (GameManager.instance.playerData.touchInput)
+        {
+            TI.SetActive(true);
+        }
+
         StartCoroutine(ManageDetectPanel());
         StartCoroutine(FadeStartPanel());
     }
@@ -69,16 +79,16 @@ public class StageUIScript : MonoBehaviour
         UIUpdate();
 
         if (StageManager.instance.isStageOn) {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape)| TouchyInterface.btnInput[2])
             {
                 Pause();
             }
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Q) || (TouchyInterface.btnInput[1]&&!tToggle))
             {
                 if(StatusCoroutine!=null)StopCoroutine(StatusCoroutine);
                 StatusCoroutine = StartCoroutine(StatusUp());
             }
-            if(Input.GetKeyUp(KeyCode.Q))
+            if(Input.GetKeyUp(KeyCode.Q) || (TouchyInterface.btnInput[1] && tToggle))
             {
                 if (StatusCoroutine != null) StopCoroutine(StatusCoroutine);
                 StatusCoroutine = StartCoroutine(StatusDown());
@@ -90,6 +100,11 @@ public class StageUIScript : MonoBehaviour
         if (StageManager.instance.stageEnd)
         {
             GameEnd();
+        }
+
+        if (TouchyInterface.btnInput[1])
+        {
+            tToggle = !tToggle;
         }
     }
 

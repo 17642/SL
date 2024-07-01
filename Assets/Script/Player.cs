@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
 
     void toggleCrawl()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift)) isCrawling = !isCrawling;
+        if (Input.GetKeyDown(KeyCode.LeftShift) || TouchyInterface.btnInput[0]) isCrawling = !isCrawling;
         if (isCrawling) soundRadius.transform.localScale = new Vector2(0.75f, 0.75f);
         else soundRadius.transform.localScale = new Vector2(1, 1);
     }
@@ -59,6 +59,12 @@ public class Player : MonoBehaviour
     {
         float hInput = Input.GetAxis("Horizontal");
         float vInput = Input.GetAxis("Vertical");
+
+        if (GameManager.instance.playerData.touchInput)
+        {
+            hInput = TouchyInterface.hIr;
+            vInput = TouchyInterface.vIr;
+        }
 
         isMoving = hInput != 0 || vInput != 0;
 

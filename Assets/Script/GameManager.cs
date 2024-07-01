@@ -22,6 +22,7 @@ public struct PlayerData
     public int maxStageNumber;
     public float volumeValue;
     public bool fullScreen;
+    public bool touchInput;
 }
 
 [System.Serializable]
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
         playerData = new PlayerData();
         stages = new StageData[endStageNumber];
         playerData.fullScreen = false;
+        playerData.touchInput = false;
         
         ResetStageData();
         LoadStageData();
@@ -78,20 +80,6 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-
-
-    void Start()
-    {
-
-
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void ChangeScene(string sceneName)
     {
